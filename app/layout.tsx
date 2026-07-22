@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import ClientWrapper from "@/components/ui/client-wrapper";
+import localFont from "next/font/local";
+import Navbar from "@/components/navbar";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const ahsing = localFont({
+  src: "../public/fonts/typogama-ahsing.otf",
+  variable: "--font-ahsing",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const seasons = localFont({
+  src: "../public/fonts/SeasonMix-TRIAL-Regular.otf",
+  variable: "--font-seasons",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,9 +29,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={` ${ahsing.variable} ${seasons.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-[url('/images/background-mds.webp')] bg-cover bg-center bg-fixed bg-no-repeat">
+        <div className="p-4">
+          <Navbar />
+        </div>
+        <ClientWrapper>{children}</ClientWrapper>
+      </body>
     </html>
   );
 }

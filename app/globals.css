@@ -3,13 +3,62 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --title: #4a5505;
+  --desc: #617206;
+  --accent: #ee5e8a;
+  --card: #d7da95;
+  --border: #a8ab6e;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-title: var(--title);
+  --color-desc: var(--desc);
+  --color-accent: var(--accent);
+  --color-card: var(--card);
+  --color-border: var(--border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-ahsing: var(--font-ahsing);
+  --font-seasons: var(--font-seasons);
+  --font-fraunces: var(--font-fraunces);
+}
+
+@layer components {
+  .heading-1 {
+    @apply text-[40px] tracking-[1px] leading-10 font-ahsing
+           lg:text-[64px] lg:leading-18  md:text-[48px] md:leading-12
+           xl:text-[90px] xl:leading-none;
+  }
+
+  .heading-2 {
+    @apply text-[32px] tracking-[1px]
+           md:text-[48px] leading-10 lg:leading-18 xl:leading-none
+           xl:text-[56px] font-ahsing;
+  }
+
+  .heading-3 {
+    @apply text-[24px] tracking-[-0.5px]
+           md:text-[26px] xl:text-[28px];
+  }
+
+  .heading-4 {
+    @apply font-bold text-[16px] tracking-[-0.5px]
+           md:text-[18px] xl:text-[20px];
+  }
+
+  .body-text {
+    @apply text-[16px] xl:text-[18px]
+           tracking-[-0.01em] leading-relaxed;
+  }
+  .card-text {
+    @apply text-[14px] md:text-[15px] xl:text-[18px] tracking-tight
+            leading-relaxed;
+  }
+  .container {
+    @apply container mx-auto px-4 py-10 sm:px-8 md:px-12 lg:px-12 xl:py-24 xl:px-12;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,7 +69,8 @@
 }
 
 body {
-  background: var(--background);
+  overflow-x: clip;
+  background-color: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
