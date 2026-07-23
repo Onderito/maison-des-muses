@@ -75,16 +75,15 @@ export function createHeadSpaFlower(refs: HeadSpaFlowerRefs) {
     const ctx = gsap.context(() => {
       gsap.set(flower, { transformOrigin: "center center", rotation: -135 });
 
-      // Entrée douce à l'arrivée sur la section.
       gsap.from(flower, {
         opacity: 0,
+        x: 200,
         scale: 0.9,
         duration: 1.3,
-        ease: "power3.out",
+        ease: "power4.inOut",
         scrollTrigger: { trigger: section, start: "top 80%", once: true },
       });
 
-      // Flottement continu, smooth et clean.
       gsap.to(flower, {
         y: "+=24",
         rotation: -129,

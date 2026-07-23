@@ -18,6 +18,9 @@ const useLenis = () => {
       wheelMultiplier: 0.9,
       infinite: false,
       syncTouch: false,
+      anchors: {
+        offset: -96,
+      },
     });
 
     lenisRef.current.on("scroll", ScrollTrigger.update);

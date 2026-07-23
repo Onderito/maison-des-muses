@@ -42,7 +42,11 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div ref={heroRef} className="min-h-screen overflow-hidden relative">
+    <div
+      id="accueil"
+      ref={heroRef}
+      className="relative min-h-screen overflow-hidden"
+    >
       <div className="flex flex-col gap-4 items-center justify-center container pb-0">
         <h1 ref={titleRef} className="heading-1 text-title text-center">
           Bienvenue chez <br /> Maison des Muses
@@ -52,7 +56,8 @@ export default function HeroSection() {
           className="body-text font-seasons text-center text-desc"
         >
           Chaque muse mérite un lieu à son image. Un espace où chaque geste est
-          pensé <br className="hidden xl:block" /> avec précision et chaque
+          pensé <br className="hidden xl:block" />{" "}
+          <br className="hidden md:block xl:hidden" /> avec précision et chaque
           instant, avec intention.
         </p>
         <div ref={buttonRef} className="flex gap-4 mt-6">
@@ -62,15 +67,15 @@ export default function HeroSection() {
           >
             Prendre rendez-vous
           </PinkButton>
-          <OutlineButton className="w-full">
+          {/* <OutlineButton className="w-full">
             Découvrir l&apos;univers
-          </OutlineButton>
+          </OutlineButton> */}
         </div>
 
-        <div className="relative w-full ">
+        <div className="relative w-full">
           <img
             ref={imageRef}
-            className="w-full max-w-none h-96 mt-10 rounded-[48px] relative z-10 object-cover"
+            className="w-full max-w-none mt-10 rounded-[48px] relative z-10 object-cover"
             src="https://d3p3fw3rutb1if.cloudfront.net/photos/76134893-d352-4e8b-806a-6b44734a865f"
             alt="Julia"
             onLoad={() => ScrollTrigger.refresh()}

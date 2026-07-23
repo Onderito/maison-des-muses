@@ -49,27 +49,25 @@ export default function Nails() {
   return (
     <>
       <div
+        id="ongles"
         ref={sectionRef}
-        className="relative flex h-screen flex-col items-center justify-start gap-4 overflow-hidden pt-14 lg:justify-start lg:overflow-visible lg:pt-0"
+        className="relative h-screen overflow-hidden lg:overflow-visible"
       >
-        <h2
-          ref={titleRef}
-          className="heading-2 text-title text-center relative z-10"
-        >
-          Des créations uniques
-        </h2>
-        <p
-          ref={descRef}
-          className="body-text text-desc font-seasons text-center relative z-10"
-        >
-          Découvrez les dernières créations réalisées au salon. Des poses
-          soignées, des détails précieux, <br className="hidden lg:block" /> et
-          toujours une touche qui vous est propre.
-        </p>
+        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 text-center">
+          <h2 ref={titleRef} className="heading-2 text-title">
+            Des créations uniques
+          </h2>
+          <p ref={descRef} className="body-text text-desc font-seasons">
+            Découvrez les dernières créations réalisées au salon. Des poses
+            soignées, <br className="hidden md:block xl:hidden" />
+            des détails précieux, <br className="hidden xl:block" /> et toujours
+            une touche qui vous est propre.
+          </p>
+        </div>
         <div className="absolute inset-0 z-50 flex items-center justify-center lg:contents">
           <div
             ref={cardsRef}
-            className="flex flex-col items-center gap-16 w-full lg:relative lg:z-30 lg:grid lg:grid-cols-2 lg:items-start lg:justify-items-center lg:gap-x-[920px] lg:gap-y-16"
+            className="flex w-full flex-col items-center gap-12 lg:relative lg:z-30 lg:grid lg:grid-cols-2 lg:items-start lg:justify-items-center lg:gap-x-16 lg:gap-y-10 xl:gap-x-[min(36vw,620px)] xl:gap-y-16"
           >
             {nails.map((nail, index) => (
               <div

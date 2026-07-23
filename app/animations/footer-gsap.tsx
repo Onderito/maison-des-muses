@@ -42,7 +42,7 @@ export function createFooterAnimation(refs: FooterRefs) {
       .from(
         desc,
         { opacity: 0, y: 30, ease: "back.out(1.7)", duration: 0.7 },
-        "-=0.4",
+        "<0.2",
       )
       .from(
         socialMediaItems,
@@ -52,7 +52,7 @@ export function createFooterAnimation(refs: FooterRefs) {
           scale: 0.7,
           ease: "power2.out",
         },
-        "-=0.2",
+        "<0.2",
       )
       .from(
         button,
@@ -63,12 +63,14 @@ export function createFooterAnimation(refs: FooterRefs) {
           ease: "power2.out",
           stagger: 0.02,
         },
-        "-=0.2",
+        "<0.2",
       );
 
     return () => {
       tl.scrollTrigger?.kill();
       tl.kill();
+      ctx.revert();
+      split.revert();
     };
   }, container);
 }

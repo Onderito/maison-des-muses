@@ -11,7 +11,7 @@ export default function OutlineButton({
 }: OutlineButtonProps) {
   return (
     <button
-      className={`inline-flex items-center cursor-pointer justify-center rounded-4xl border border-border bg-transparent p-2.5 font-seasons text-[16px] tracking-[-0.32px] text-desc transition-colors duration-200 ease-out hover:border-title hover:text-title ${className ?? ""}`}
+      className={`inline-flex items-center cursor-pointer justify-center rounded-4xl border border-border/50 bg-transparent p-2.5 font-seasons text-[16px] tracking-[-0.32px] text-desc transition-colors duration-200 ease-out hover:border-title hover:text-title ${className ?? ""}`}
       {...props}
     >
       {children}

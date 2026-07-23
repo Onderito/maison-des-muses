@@ -5,12 +5,11 @@ import { useLayoutEffect, useRef, useState } from "react";
 import PinkButton from "./ui/pink-button";
 
 const links = [
-  { label: "A propos", href: "#" },
-  { label: "Ongles", href: "#" },
-  { label: "Head spa", href: "#" },
-  { label: "Avis", href: "#" },
-  { label: "Le Journal", href: "#" },
-  { label: "Podcasts", href: "#" },
+  { label: "A propos", href: "#a-propos" },
+  { label: "Ongles", href: "#ongles" },
+  { label: "Head spa", href: "#head-spa" },
+  { label: "Podcasts", href: "#podcasts" },
+  { label: "FAQs", href: "#faqs" },
 ];
 
 export default function Navbar() {
@@ -36,11 +35,15 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
-      className="relative flex items-center w-full md:w-[70%] mx-auto justify-between gap-4 rounded-[52px] border border-white/50 bg-white/20 p-2.5 backdrop-blur-[2.5px]"
+      className="relative z-[100] mx-auto flex w-full items-center justify-between gap-4 rounded-[52px] border border-white/50 bg-white/30 p-2.5 shadow-sm backdrop-blur-md md:w-[70%]"
     >
-      <span className="shrink-0 whitespace-nowrap font-ahsing text-[20px] tracking-[-0.8px] text-title cursor-pointer">
+      <a
+        href="#accueil"
+        aria-label="Revenir à l’accueil"
+        className="shrink-0 cursor-pointer whitespace-nowrap font-ahsing text-[20px] tracking-[-0.8px] text-title"
+      >
         Maison des Muses
-      </span>
+      </a>
 
       <ul className="hidden items-center gap-4 whitespace-nowrap font-seasons text-[18px] tracking-[-0.8px] text-desc xl:flex">
         {links.map((link) => (
@@ -78,7 +81,7 @@ export default function Navbar() {
       </button>
 
       {open && (
-        <div className="absolute inset-x-0 top-full mt-2 flex flex-col gap-4 rounded-[18px] border border-white/50 bg-white p-4 xl:hidden z-50">
+        <div className="absolute inset-x-0 top-full z-[110] mt-2 flex flex-col gap-4 rounded-[42px] border border-white/50 bg-card p-4 shadow-lg backdrop-blur-md xl:hidden">
           <ul className="flex flex-col gap-3 font-seasons text-[16px] tracking-[-0.6px] text-desc">
             {links.map((link) => (
               <li key={link.label}>

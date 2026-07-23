@@ -42,10 +42,17 @@ export default function HeadSap() {
   }, []);
 
   return (
-    <div ref={sectionRef} className="flex flex-col overflow-hidden relative">
+    <div
+      id="head-spa"
+      ref={sectionRef}
+      className="relative flex flex-col overflow-hidden"
+    >
       <div className="container flex flex-col gap-4 pb-0">
         <div className="flex flex-col gap-4 items-center justify-center">
-          <h2 ref={titleRef} className="heading-2 text-title text-center x">
+          <h2
+            ref={titleRef}
+            className="heading-2 text-center leading-[0.88] text-title"
+          >
             Un rituel pensé <br /> pour tout relâcher
           </h2>
           <p
@@ -53,8 +60,8 @@ export default function HeadSap() {
             className="body-text text-desc font-seasons text-center"
           >
             Inspiré des head spa japonais, chaque soin mêle massages
-            enveloppants et cascades d&apos;eau tiède.{" "}
-            <br className="hidden xl:block" /> Choisissez votre rituel, on
+            enveloppants et cascades d&apos;eau tiède.
+            <br className="hidden md:block" /> Choisissez votre rituel, on
             s&apos;occupe du reste.
           </p>
         </div>
@@ -66,7 +73,7 @@ export default function HeadSap() {
       >
         <div
           ref={trackRef}
-          className="flex flex-col gap-8 items-center xl:flex-row xl:items-stretch xl:w-max"
+          className="flex flex-col gap-8 items-center xl:flex-row xl:items-stretch xl:w-max mt-4 lg:mt-10 xl:mt-16"
         >
           <ServiceCard
             image="/images/headspa-example.png"
@@ -100,7 +107,7 @@ export default function HeadSap() {
       </div>
       <Image
         ref={flowerRef}
-        className="hidden xl:block absolute w-[573px] h-[600px] -rotate-135 right-0 -top-36 z-0"
+        className="hidden 2xl:block absolute w-[573px] h-[600px] -rotate-135 right-0  -top-36 z-0"
         src="/images/green-flower-mds.png"
         alt=""
         width={400}

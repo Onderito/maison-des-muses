@@ -36,7 +36,7 @@ export function createNailsIntroAnimation(refs: NailsIntroRefs) {
 
   const st = ScrollTrigger.create({
     trigger: section,
-    start: "top 80%",
+    start: "top 30%",
     once: true,
     onEnter: (self) => {
       if (self.scroll() > self.start + window.innerHeight) {
@@ -114,7 +114,7 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
       const tl = gsap.timeline({
         scrollTrigger: {
           ...baseTrigger,
-          start: "top center",
+          start: "top top",
           end: () =>
             `+=${Math.max(window.innerHeight * 1.6, furthestCardBottom() * 0.64)}`,
           scrub: 0.8,

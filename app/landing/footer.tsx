@@ -157,7 +157,7 @@ export default function Footer() {
         </div>
       </div>
       {/* Barre légale en bas */}
-      <div className="absolute inset-x-0 bottom-4 z-10 flex flex-col items-center gap-1.5 px-6 text-center font-seasons text-[12px] tracking-[-0.24px] text-desc md:bottom-6 md:flex-row md:items-end md:justify-between md:gap-2 md:px-[100px] md:text-[16px] md:tracking-[-0.32px] md:text-left">
+      <div className="absolute inset-x-0 bottom-4 z-10 flex flex-col items-center gap-1.5 px-6 text-center font-seasons text-[12px] tracking-[-0.24px] text-desc md:bottom-6 md:px-8 md:text-[14px] md:tracking-[-0.28px] xl:flex-row xl:items-end xl:justify-between xl:gap-4 xl:px-[100px] xl:text-left xl:text-[16px] xl:tracking-[-0.32px]">
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
           <a href="#">Mentions légales</a>
           <a href="#">Politique de confidentialité</a>

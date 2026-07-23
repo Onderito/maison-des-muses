@@ -29,9 +29,10 @@ const stories: Story[] = [
       "J’avais besoin de créer, de donner du sens à mon travail et de me sentir pleinement épanouie dans ce que je faisais au quotidien.",
     ],
     note: "Après quelques détours…\nme voilà.",
-    image: "/images/test-julia.webp",
-    decoration: "/images/monstera.webp",
-    decorationClassName: "-right-[7%] -top-[4%] w-[52%] rotate-[8deg] lg:block",
+    image: "/images/about-me/julia-home.webp",
+    decoration: "/images/about-me/monstera.webp",
+    decorationClassName:
+      "-right-[18%] top-[58%] w-[62%] rotate-[8deg] sm:-right-[10%] sm:w-[48%] lg:-right-[4%] lg:top-[18%] lg:w-[30%] xl:-right-[7%] xl:-top-[4%] xl:w-[52%]",
     decorationWidth: 1241,
     decorationHeight: 827,
     alt: "Julia, fondatrice de Maison des Muses",
@@ -45,9 +46,10 @@ const stories: Story[] = [
       "Un métier où la créativité, la précision et le contact humain se rencontrent.",
     ],
     note: "Tout commence\npar une attention.",
-    image: "/images/georges.webp",
-    decoration: "/images/nails.webp",
-    decorationClassName: "-right-[2%] -top-[4%] w-[34%] rotate-[8deg] lg:block",
+    image: "/images/about-me/julia-work.webp",
+    decoration: "/images/about-me/nails.webp",
+    decorationClassName:
+      "-right-[9%] top-[55%] w-[38%] rotate-[8deg] sm:-right-[4%] sm:w-[30%] lg:right-[1%] lg:top-[16%] lg:w-[22%] xl:-right-[2%] xl:-top-[4%] xl:w-[34%]",
     decorationWidth: 737,
     decorationHeight: 1105,
     alt: "Un moment de soin à Maison des Muses",
@@ -57,14 +59,13 @@ const stories: Story[] = [
     label: "Entre Muses",
     title: ["Les histoires", "qui nous inspirent."],
     paragraphs: [
-      "Les plus belles rencontres naissent souvent d’une simple conversation. C’est de cette envie qu’est né Entre Muses, un podcast qui donne la parole à des femmes inspirantes.",
-      "Parce que derrière chaque parcours se cache une muse capable d’inspirer une autre.",
+      "Les plus belles rencontres naissent souvent d’une simple conversation. C’est de cette envie qu’est né Entre Muses, un podcast qui donne la parole à des femmes inspirantes. Parce que derrière chaque parcours se cache une muse capable d’inspirer une autre.",
     ],
     note: "Écouter, partager,\ns’inspirer.",
-    image: "/images/podcast-img-1.webp",
-    decoration: "/images/microphone.webp",
+    image: "/images/about-me/podcast-img-1.webp",
+    decoration: "/images/about-me/microphone.webp",
     decorationClassName:
-      "-right-[5%] -top-[6%] w-[39%] rotate-[-8deg] lg:block",
+      "-right-[10%] top-[55%] w-[43%] rotate-[-8deg] sm:-right-[4%] sm:w-[34%] lg:-right-[2%] lg:top-[16%] lg:w-[27%] xl:-right-[5%] xl:-top-[6%] xl:w-[39%]",
     decorationWidth: 737,
     decorationHeight: 1105,
     alt: "L’univers du podcast Entre Muses",
@@ -78,9 +79,10 @@ const stories: Story[] = [
       "Et vous croiserez sûrement Georges, mascotte officielle de la maison, toujours prêt à accueillir les clientes avec bonne humeur.",
     ],
     note: "Bienvenue\nchez nous.",
-    image: "/images/georges.webp",
-    decoration: "/images/cushion.webp",
-    decorationClassName: "-right-[4%] top-[6%] w-[46%] rotate-[8deg] lg:block",
+    image: "/images/about-me/georges.webp",
+    decoration: "/images/about-me/cushion.webp",
+    decorationClassName:
+      "-right-[16%] bottom-[2%] w-[58%] rotate-[8deg] sm:-right-[8%] sm:w-[46%] lg:-right-[4%] lg:bottom-[38%] lg:w-[32%] xl:-right-[4%] xl:top-[6%] xl:bottom-auto xl:w-[46%]",
     decorationWidth: 1084,
     decorationHeight: 723,
     alt: "Le cocon de Maison des Muses",
@@ -106,23 +108,26 @@ export default function AboutMe() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="overflow-x-clip">
+    <section id="a-propos" ref={sectionRef} className="overflow-x-clip">
       <div ref={horizontalRef}>
-        <div ref={trackRef} className="flex w-full lg:w-max">
+        <div
+          ref={trackRef}
+          className="flex w-full flex-col xl:w-max xl:flex-row"
+        >
           <header
             data-about-panel
-            className="flex min-h-screen w-full shrink-0 items-center justify-center px-6 text-center sm:px-10 lg:w-screen"
+            className="flex min-h-[85svh] w-full shrink-0 items-center justify-center px-6 text-center sm:px-10 lg:min-h-screen xl:w-screen"
           >
             <div className="max-w-5xl">
               <h2
                 ref={titleRef}
-                className="font-ahsing text-[54px] leading-[0.88] tracking-[-0.04em] text-title lg:text-[120px]"
+                className="font-ahsing text-[54px] leading-[0.88] tracking-[-0.04em] text-title md:text-[72px] lg:text-[96px] xl:text-[120px]"
               >
-                Derrière Maison des Muses
+                Derrière Maison <br /> des Muses
               </h2>
               <p
                 ref={introRef}
-                className="mx-auto mt-7 max-w-2xl font-seasons text-[17px] leading-relaxed text-desc lg:mt-9 lg:text-[20px]"
+                className="mx-auto mt-7 max-w-2xl font-seasons text-[16px] leading-relaxed text-desc md:text-[18px] xl:mt-9"
               >
                 Plus qu’un lieu de beauté, Maison des Muses est une histoire de
                 rencontres, de créativité et de moments pensés pour vous.
@@ -134,20 +139,20 @@ export default function AboutMe() {
             <article
               key={story.label}
               data-about-panel
-              className="relative flex min-h-[800px] w-full shrink-0 flex-col overflow-hidden px-6 pb-14 pt-20 sm:px-10 lg:block lg:h-[min(64.64vw,1117px)] lg:min-h-0 lg:w-screen lg:px-0 lg:pb-0 lg:pt-0"
+              className="relative flex w-full shrink-0 flex-col overflow-hidden px-5 py-16 sm:px-10 sm:py-20 lg:grid lg:min-h-[720px] lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.9fr)] lg:grid-rows-[auto_auto_auto] lg:content-center lg:gap-x-10 lg:px-12 lg:py-12 xl:block xl:h-[min(64.64vw,1117px)] xl:min-h-0 xl:w-screen xl:px-0 xl:py-0"
             >
               <p
                 data-about-label
-                className="relative z-10 font-seasons text-[14px] tracking-[-0.02em] text-accent lg:absolute lg:left-[5.8%] lg:top-[8.95%] lg:text-[16px]"
+                className="relative z-10 font-seasons text-[14px] tracking-[-0.02em] text-accent lg:col-start-1 lg:row-start-1 lg:text-[16px] xl:absolute xl:left-[5.8%] xl:top-[8.95%]"
               >
                 {story.label}
               </p>
 
               <div
                 data-about-copy
-                className="relative z-10 mt-12 w-full max-w-[480px] lg:absolute lg:left-[5.8%] lg:top-[23.55%] lg:mt-0 lg:w-[38%] lg:max-w-[625px]"
+                className="relative z-10 mt-7 w-full max-w-[520px] lg:col-start-1 lg:row-start-2 lg:mt-8 lg:max-w-none xl:absolute xl:left-[5.8%] xl:top-[23.55%] xl:mt-0 xl:w-[38%] xl:max-w-[625px]"
               >
-                <h3 className="font-ahsing text-[38px] leading-[0.9] tracking-[-0.02em] text-title lg:text-[42px]">
+                <h3 className="font-ahsing text-[38px] leading-[0.9] tracking-[-0.02em] text-title lg:text-[52px] xl:text-[56px]">
                   {story.title[0]}
                   {story.title[1] && (
                     <>
@@ -156,7 +161,7 @@ export default function AboutMe() {
                     </>
                   )}
                 </h3>
-                <div className="mt-8 space-y-0 font-seasons text-[16px] leading-[1.32] tracking-[-0.02em] text-desc lg:mt-8 lg:text-[20px]">
+                <div className="mt-6 space-y-4 font-seasons text-[16px] leading-[1.45] tracking-[-0.02em] text-desc lg:mt-7 lg:text-[18px] xl:mt-8 xl:space-y-0 xl:text-[18px] xl:leading-[1.32] text-pretty">
                   {story.paragraphs.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}
@@ -165,16 +170,16 @@ export default function AboutMe() {
 
               <p
                 data-about-note
-                className="relative z-10 ml-[38%] mt-7 whitespace-pre-line font-seasons text-[16px] italic leading-[1.05] tracking-[-0.02em] text-desc lg:absolute lg:left-[30.9%] lg:top-[60.7%] lg:ml-0 lg:mt-0"
+                className="relative z-10 mt-6 self-end whitespace-pre-line text-right font-seasons text-[16px] italic leading-[1.05] tracking-[-0.02em] text-desc lg:col-start-1 lg:row-start-3 lg:mt-8 lg:self-start lg:text-left xl:absolute xl:left-[30.9%] xl:top-[60.7%] xl:mt-0"
               >
                 {story.note}
               </p>
 
               <div
                 data-about-media
-                className="relative z-10 ml-auto mt-8 aspect-[754/701] w-[88%] lg:absolute lg:left-[50.5%] lg:top-[18.7%] lg:mt-0 lg:h-[62.75%] lg:w-[43.63%] lg:aspect-auto"
+                className="relative z-10 mx-auto mt-9 aspect-[754/701] w-full max-w-[520px] lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:mt-0 lg:w-full lg:max-w-[440px] lg:self-center xl:absolute xl:left-[50.5%] xl:top-[18.7%] xl:mx-0 xl:h-[62.75%] xl:w-[43.63%] xl:max-w-none xl:aspect-auto"
               >
-                <div className="absolute -left-[6.5%] top-[3.9%] h-full w-full rotate-[5.23deg] overflow-hidden rounded-[48px] border border-border bg-white">
+                <div className="absolute -left-[4%] top-[3%] h-full w-full rotate-[4deg] overflow-hidden rounded-[30px] border border-border/50 bg-white xl:-left-[6.5%] xl:top-[3.9%] xl:rotate-[5.23deg] xl:rounded-[48px]">
                   <Image
                     src={story.image}
                     alt={story.alt}
@@ -184,59 +189,66 @@ export default function AboutMe() {
                     className="object-cover object-top"
                   />
                 </div>
-                <div className="relative h-full w-full overflow-hidden rounded-[48px] border border-border bg-white">
+                <div className="relative h-full w-full overflow-hidden rounded-[30px]  bg-white xl:rounded-[48px]">
                   <Image
                     src={story.image}
                     alt={story.alt}
                     sizes="(min-width: 1024px) 44vw, 88vw"
-                    quality={100}
+                    quality={75}
                     fill
                     className="object-cover object-top"
                   />
                 </div>
-                <span className="absolute bottom-[3%] right-[1.8%] rounded-3xl bg-accent px-3 py-2 font-ahsing text-[13px] tracking-[-0.02em] text-white lg:text-[16px]">
+                <span className="absolute bottom-[3%] right-[2%] max-w-[88%] rounded-3xl bg-accent px-3 py-2 text-right font-ahsing text-[12px] tracking-[-0.02em] text-white sm:text-[13px] lg:text-[14px] xl:right-[1.8%] xl:text-[16px]">
                   {story.imageCaption}
                 </span>
               </div>
 
               <Image
-                data-about-vine
+                data-about-img
                 src={story.decoration}
                 alt=""
                 width={story.decorationWidth}
                 height={story.decorationHeight}
-                className={`pointer-events-none absolute z-20 hidden max-w-none ${story.decorationClassName}`}
+                className={`pointer-events-none absolute z-20 max-w-none ${story.decorationClassName}`}
               />
 
-              {index === 0 && (
+              {/* {index === 0 && (
                 <Image
                   src="/images/about-progress.svg"
                   alt="Progression, premier chapitre sur quatre"
                   width={60}
                   height={34}
-                  className="absolute bottom-[4%] left-[47.6%] z-20 hidden h-auto w-[60px] lg:block"
+                  className="absolute bottom-[4%] left-[47.6%] z-20 hidden h-auto w-[60px] xl:block"
                 />
-              )}
+              )} */}
             </article>
           ))}
 
           <article
             data-about-panel
             data-about-final-card
-            className="flex min-h-screen w-full shrink-0 items-center justify-center bg-accent px-6 text-center sm:px-10 lg:w-screen"
+            className="flex min-h-screen w-full shrink-0 items-center justify-center bg-accent px-6 py-20 text-center sm:px-10 xl:w-screen xl:py-0"
           >
             <div className="max-w-4xl">
-              <p className="font-seasons text-[15px] tracking-[0.14em] text-white/75 uppercase">
+              <p
+                data-about-final-label
+                className="font-seasons text-[15px] tracking-[0.14em] text-white/75 uppercase"
+              >
                 Maison des Muses
               </p>
-              <h3 className="mt-8 font-ahsing text-[52px] leading-[0.9] tracking-[-0.03em] text-white lg:text-[100px]">
+              <h3
+                data-about-final-title
+                className="mt-8 font-ahsing text-[42px] leading-[0.9] tracking-[-0.03em] text-white md:text-[64px] lg:text-[80px] xl:text-[100px]"
+              >
                 Peut-être étions-nous faites pour nous rencontrer.
               </h3>
               <a
+                data-about-final-cta
                 href="https://www.instagram.com/maisondesmuses_julia/"
                 target="_blank"
                 rel="noreferrer"
-                className=" inline-flex rounded-full border border-white bg-white px-7 py-3 font-seasons text-[15px] text-accent transition-transform duration-300 hover:-translate-y-1 lg:px-9 lg:py-4 lg:text-[16px]"
+                className="mt-10  inline-flex rounded-full border border-white bg-white px-7 py-3 font-seasons text-[15px] text-accent transition-transform duration-300 hover:-translate-y-1 xl:px-9 xl:py-4 xl:text-[16px]"
               >
                 Prendre rendez-vous
               </a>

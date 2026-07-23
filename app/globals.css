@@ -33,8 +33,8 @@
   }
 
   .heading-2 {
-    @apply text-[32px] tracking-[1px]
-           md:text-[48px] leading-10 lg:leading-18 xl:leading-none
+    @apply text-[32px] tracking-[1px] leading-[0.95]
+           md:text-[48px]
            xl:text-[56px] font-ahsing;
   }
 

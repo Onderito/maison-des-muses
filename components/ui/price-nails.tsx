@@ -31,16 +31,16 @@ function PriceList({ title, services }: PriceListProps) {
     <div data-price-list>
       <h2
         data-price-title
-        className="font-ahsing text-[28px] leading-none text-white lg:text-[32px]"
+        className="font-ahsing text-[26px] leading-[0.95] text-title md:text-[28px] xl:text-[32px]"
       >
         {title}
       </h2>
-      <div className="mt-8 border-t border-white/80 lg:mt-9">
+      <div className="mt-6 border-t border-border md:mt-7 xl:mt-9">
         {services.map(([label, price]) => (
           <div
             key={label}
             data-price-row
-            className="flex items-center justify-between gap-5 border-b border-white/80 py-2 font-seasons text-[16px] leading-normal text-white sm:text-[18px] lg:py-[7px] lg:text-[20px]"
+            className="flex items-center justify-between gap-5 border-b border-border py-1.5 font-seasons text-[15px] leading-normal text-desc sm:text-[16px] xl:py-[7px] xl:text-[20px]"
           >
             <span>{label}</span>
             <span className="shrink-0 font-black">{price}</span>
@@ -66,20 +66,20 @@ export default function PriceNails() {
     <section
       ref={sectionRef}
       aria-label="Tarifs des prestations d’onglerie"
-      className="relative left-1/2 grid min-h-screen w-screen -translate-x-1/2 bg-[#a8ab6e] lg:grid-cols-[49.42%_50.58%]"
+      className="relative left-1/2 grid min-h-screen w-screen -translate-x-1/2 bg-[#d7da95] lg:grid-cols-[49.42%_50.58%]"
     >
-      <div className="flex items-center px-6 py-20 sm:px-12 lg:px-[5.79vw] lg:py-[8vh]">
-        <div className="w-full max-w-[645px]">
+      <div className="flex items-center px-6 py-14 sm:px-10 lg:px-12 lg:py-8 xl:px-[5.79vw] xl:py-[8vh]">
+        <div className="mx-auto w-full max-w-[645px] lg:mx-0">
           <PriceList title="Ongles" services={nailServices} />
-          <div className="mt-20 lg:mt-[105px]">
+          <div className="mt-14 lg:mt-12 xl:mt-[105px]">
             <PriceList title="Nail art" services={nailArtServices} />
           </div>
 
           <div
             data-price-cta
-            className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between"
+            className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between xl:mt-9"
           >
-            <p className="font-seasons text-[16px] italic text-white/90 lg:text-[18px]">
+            <p className="font-seasons text-[15px] italic text-desc md:text-[16px] xl:text-[18px]">
               Sur rendez-vous uniquement
             </p>
             <PinkButton
@@ -94,7 +94,7 @@ export default function PriceNails() {
 
       <div
         ref={imageRef}
-        className="relative min-h-[70vh] overflow-hidden border border-white/20 lg:min-h-screen"
+        className="relative min-h-[70vh] overflow-hidden  lg:min-h-screen"
       >
         <Image
           src="/images/nails/nails-price.webp"
@@ -102,7 +102,7 @@ export default function PriceNails() {
           fill
           sizes="(min-width: 1024px) 51vw, 100vw"
           className="object-cover"
-          quality={100}
+          quality={75}
         />
       </div>
     </section>

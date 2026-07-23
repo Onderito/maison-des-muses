@@ -24,8 +24,9 @@ export default function PodcastContent() {
   }, []);
   return (
     <div
+      id="podcasts"
       ref={containerRef}
-      className="relative h-[400px] w-full overflow-hidden flex justify-center items-center rounded-[52px] border-[1.5px] border-white xl:h-[460px]"
+      className="relative h-[400px] w-full overflow-hidden flex justify-center items-center rounded-[52px] border-[1.5px] border-white xl:h-[460px] mt-10 mb-10"
     >
       <Image
         src="/images/podcast-bg-mds.webp"
@@ -41,6 +42,8 @@ export default function PodcastContent() {
         className="
           absolute 
           bottom-[-140px] 
+          md:bottom-[-160px]
+          xl:bottom-[-180px]
           left-[-140px] 
           w-[300px] 
           sm:w-[380px] 
@@ -58,7 +61,9 @@ export default function PodcastContent() {
         ref={pinkFlowerRef}
         className="
           absolute 
-          bottom-[-160px] 
+          bottom-[-160px]
+          md:bottom-[-200px] 
+          xl:bottom-[-240px]
           right-[-140px] 
           w-[280px] 
           sm:w-[380px] 

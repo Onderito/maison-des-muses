@@ -43,7 +43,7 @@ export default function ServiceCard({
   ctaLabel = "Prendre rendez-vous",
 }: ServiceCardProps) {
   return (
-    <div className="relative flex flex-col items-center gap-2 xl:gap-0 overflow-hidden xl:w-[1121px] rounded-[32px] border border-border xl:rounded-[52px] bg-card  lg:flex-row lg:items-stretch ">
+    <div className="relative flex flex-col items-center gap-2 xl:gap-0 overflow-hidden md:w-full xl:w-[1121px] rounded-[32px] border border-border/50 xl:rounded-[52px] bg-card  lg:flex-row lg:items-stretch ">
       <div className="relative h-[400px] w-full shrink-0 lg:h-auto lg:w-[45%] p-1.5">
         <div className="relative h-full w-full overflow-hidden rounded-[26px] xl:rounded-[46px]">
           <Image src={image} alt={imageAlt} fill className="object-cover" />
@@ -86,7 +86,7 @@ export default function ServiceCard({
         </PinkButton>
       </div>
       <Image
-        className="absolute w-[250px] -bottom-15 -right-15 -rotate-30 "
+        className="hidden xl:block absolute w-[250px] -bottom-15 -right-15 -rotate-30 "
         src="/images/little-flower.webp"
         alt="little pink flower"
         width={500}

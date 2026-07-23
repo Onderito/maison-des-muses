@@ -78,28 +78,29 @@ export default function Faq() {
   ];
   return (
     <div
+      id="faqs"
       ref={containerRef}
-      className="flex flex-col gap-4 items-center justify-center xl:items-start relative"
+      className="relative flex flex-col items-center justify-center gap-4 lg:items-start"
     >
       <h2
         ref={titleRef}
-        className="heading-2 text-title text-center xl:text-start"
+        className="heading-2 text-center leading-[0.88] text-title lg:text-start"
       >
         Une question ? <br /> On vous dit tout
       </h2>
       <p
         ref={descRef}
-        className="body-text text-desc font-seasons text-center xl:text-start"
+        className="body-text text-center font-seasons text-desc lg:text-start"
       >
         Les réponses aux questions qui reviennent le plus souvent.{" "}
-        <br className="hidden xl:block" /> Et s&apos;il vous en reste une,
+        <br className="hidden md:block" /> Et s&apos;il vous en reste une,
         écrivez-moi sur Instagram.
       </p>
 
-      <div className="flex flex-col gap-8 xl:flex-row xl:justify-between xl:w-full xl:items-start xl:mt-16">
+      <div className="mt-4 flex flex-col gap-8 lg:mt-10 lg:w-full lg:flex-row lg:items-start lg:justify-between xl:mt-16">
         <div
           ref={leftLayoutRef}
-          className="relative w-full h-[300px] xl:h-[600px] xl:w-1/2 overflow-hidden rounded-[28px] xl:sticky xl:top-24 border border-white/20"
+          className="relative h-[300px] w-full overflow-hidden rounded-[28px] border border-white/20 md:h-[400px] lg:sticky lg:top-24 lg:h-[450px] lg:w-1/2 xl:h-[600px]"
         >
           <Image
             className="object-cover "
@@ -109,12 +110,15 @@ export default function Faq() {
             unoptimized
           />
         </div>
-        <div ref={rightLayoutRef} className="flex flex-col gap-6 xl:w-1/2">
+        <div
+          ref={rightLayoutRef}
+          className="flex flex-col gap-4 lg:w-1/2 xl:gap-6"
+        >
           {faqs.map((f, index) => (
             <div key={index}>
               <div
                 onClick={() => toggle(index)}
-                className="font-seasons flex flex-col gap-2 bg-card border border-border p-4 xl:p-8 rounded-[28px] cursor-pointer "
+                className="font-seasons flex flex-col gap-2 bg-card border border-border/50 p-4 xl:p-8 rounded-[28px] cursor-pointer "
               >
                 <div className="flex justify-between items-center">
                   <h4 className="heading-4 text-title ">{f.question}</h4>

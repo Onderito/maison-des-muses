@@ -49,12 +49,12 @@ export function createFaqAnimation(refs: FaqRefs) {
         {
           autoAlpha: 0,
           y: 120,
-          x: -200,
+          x: -100,
           scale: 0.5,
           duration: 0.6,
           ease: "power2.out",
         },
-        "-=0.2",
+        "<0.3",
       )
       .from(
         rightLayoutItems,
@@ -67,12 +67,14 @@ export function createFaqAnimation(refs: FaqRefs) {
           ease: "power2.out",
           stagger: 0.02,
         },
-        "<",
+        "<0.2",
       );
 
     return () => {
       tl.scrollTrigger?.kill();
       tl.kill();
+      ctx.revert();
+      split.revert();
     };
   }, container);
 }

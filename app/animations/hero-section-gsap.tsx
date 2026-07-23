@@ -61,7 +61,7 @@ export function createHeroIntroAnimation(refs: HeroIntroRefs) {
         duration: 1.2,
         stagger: 0.15,
       },
-      "-=0.6",
+      "<",
     )
     .to(pinkFlower, {
       y: "+=24",
@@ -105,12 +105,6 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
   const ctx = gsap.context(() => {
     gsap.set(image, { force3D: true, willChange: "transform, width, height" });
 
-    // Position layout de l'image dans le hero. Contrairement à
-    // getBoundingClientRect(), offsetTop/offsetLeft ignorent les transforms :
-    // même si l'intro anime encore l'image (scale/y) au moment de la mesure
-    // (refresh en bas de page, scroll immédiat), les valeurs restent justes.
-    // Pendant le pin (start "top top"), le hero est calé en haut du viewport,
-    // donc ces offsets = position à l'écran de l'image non transformée.
     const layoutOffset = () => {
       let el: HTMLElement | null = image;
       let top = 0;
@@ -132,8 +126,6 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
-        // Pas de fastScrollEnd / preventOverlaps : ils font "sauter"
-        // l'animation à la fin sur un scroll rapide.
         invalidateOnRefresh: true,
       },
     });

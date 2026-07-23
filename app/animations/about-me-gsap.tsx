@@ -28,15 +28,34 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
       })
       .from(split.words, {
         opacity: 0,
-        y: -60,
-        duration: 0.8,
-        stagger: 0.07,
-        ease: "power3.out",
+        y: 50,
+        rotate: 6,
+        scale: 0.8,
+        duration: 0.7,
+        stagger: 0.08,
+        ease: "back.out(1.7)",
       })
-      .from(intro, { opacity: 0, y: 24, duration: 0.6 }, "-=0.4");
+      .from(
+        intro,
+        { opacity: 0, y: 30, duration: 0.7, ease: "back.out(1.7)" },
+        "-=0.4",
+      );
+
+    const decorationMotions = [
+      { xPercent: 18, rotation: 10, scale: 0.96 },
+      { yPercent: 18, rotation: -10, scale: 0.92 },
+      { xPercent: 18, yPercent: -8, rotation: -16, scale: 0.94 },
+      { yPercent: 22, rotation: 14, scale: 0.9 },
+    ];
+    const getDecorationMotion = (panelIndex: number) =>
+      decorationMotions[panelIndex - 1] ?? {
+        xPercent: 20,
+        rotation: 5,
+        scale: 0.96,
+      };
 
     const mm = gsap.matchMedia();
-    mm.add("(min-width: 1024px)", () => {
+    mm.add("(min-width: 1280px)", () => {
       const panels = gsap.utils.toArray<HTMLElement>("[data-about-panel]");
       const headingSplits: SplitText[] = [];
       const horizontalTimeline = gsap.timeline({
@@ -62,7 +81,7 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
         const copy = panel.querySelector<HTMLElement>("[data-about-copy]");
         const note = panel.querySelector<HTMLElement>("[data-about-note]");
         const media = panel.querySelector<HTMLElement>("[data-about-media]");
-        const vine = panel.querySelector<HTMLElement>("[data-about-vine]");
+        const img = panel.querySelector<HTMLElement>("[data-about-img]");
         const heading = copy?.querySelector<HTMLElement>("h3");
         const headingSplit = heading
           ? new SplitText(heading, { type: "lines", mask: "lines" })
@@ -111,17 +130,14 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
             revealAt + 0.2,
           );
         }
-        if (vine) {
-          const decorationMotion = [
-            { xPercent: 18, rotation: 10, scale: 0.96 },
-            { yPercent: 18, rotation: -10, scale: 0.92 },
-            { xPercent: 18, yPercent: -8, rotation: -16, scale: 0.94 },
-            { yPercent: 22, rotation: 14, scale: 0.9 },
-          ][index - 1] ?? { xPercent: 20, rotation: 5, scale: 0.96 };
-
+        if (img) {
           horizontalTimeline.from(
-            vine,
-            { autoAlpha: 0, ...decorationMotion, duration: 0.65 },
+            img,
+            {
+              autoAlpha: 0,
+              ...getDecorationMotion(index),
+              duration: 0.65,
+            },
             revealAt + 0.2,
           );
         }
@@ -131,11 +147,54 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
         "[data-about-final-card]",
       );
       if (finalCard) {
-        horizontalTimeline.from(
-          finalCard.querySelectorAll("p, h3, a"),
-          { autoAlpha: 0, y: 42, stagger: 0.12, duration: 0.55 },
-          panels.length - 1 - 0.55,
+        const finalLabel = finalCard.querySelector<HTMLElement>(
+          "[data-about-final-label]",
         );
+        const finalTitle = finalCard.querySelector<HTMLElement>(
+          "[data-about-final-title]",
+        );
+        const finalCta = finalCard.querySelector<HTMLElement>(
+          "[data-about-final-cta]",
+        );
+        const finalTitleSplit = finalTitle
+          ? new SplitText(finalTitle, { type: "lines", mask: "lines" })
+          : null;
+        if (finalTitleSplit) headingSplits.push(finalTitleSplit);
+        const finalRevealAt = panels.length - 1 - 0.55;
+
+        if (finalLabel) {
+          horizontalTimeline.from(
+            finalLabel,
+            { autoAlpha: 0, y: -20, duration: 0.3 },
+            finalRevealAt,
+          );
+        }
+        if (finalTitleSplit) {
+          horizontalTimeline.from(
+            finalTitleSplit.lines,
+            {
+              autoAlpha: 0,
+              yPercent: 110,
+              stagger: 0.1,
+              duration: 0.65,
+              ease: "power4.out",
+            },
+            finalRevealAt + 0.08,
+          );
+        }
+        if (finalCta) {
+          horizontalTimeline.from(
+            finalCta,
+            {
+              autoAlpha: 0,
+              y: 28,
+              scale: 0.94,
+              duration: 0.45,
+              ease: "back.out(1.7)",
+            },
+            finalRevealAt + 0.28,
+          );
+        }
       }
 
       return () => {
@@ -144,26 +203,176 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
       };
     });
 
-    mm.add("(max-width: 1023px)", () => {
-      gsap.utils.toArray<HTMLElement>("[data-about-panel]").forEach((panel) => {
-        gsap.from(
-          panel.querySelectorAll(
-            "[data-about-label], [data-about-copy], [data-about-note], [data-about-media]",
-          ),
-          {
-            autoAlpha: 0,
-            y: 28,
-            stagger: 0.08,
-            duration: 0.6,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: panel,
-              start: "top 20%",
-              once: true,
-            },
+    mm.add("(max-width: 1279px)", () => {
+      const panels = gsap.utils.toArray<HTMLElement>("[data-about-panel]");
+      const headingSplits: SplitText[] = [];
+      const panelTimelines: gsap.core.Timeline[] = [];
+
+      panels.forEach((panel, index) => {
+        const label = panel.querySelector<HTMLElement>("[data-about-label]");
+        const copy = panel.querySelector<HTMLElement>("[data-about-copy]");
+        const note = panel.querySelector<HTMLElement>("[data-about-note]");
+        const media = panel.querySelector<HTMLElement>("[data-about-media]");
+        const decoration =
+          panel.querySelector<HTMLElement>("[data-about-img]");
+        const heading = copy?.querySelector<HTMLElement>("h3");
+        const paragraphs = copy
+          ? gsap.utils.toArray<HTMLElement>(copy.querySelectorAll("div > p"))
+          : [];
+        const headingSplit = heading
+          ? new SplitText(heading, { type: "lines", mask: "lines" })
+          : null;
+
+        if (!label && !headingSplit && !paragraphs.length && !note && !media) {
+          return;
+        }
+        if (headingSplit) headingSplits.push(headingSplit);
+
+        const panelTimeline = gsap.timeline({
+          defaults: { ease: "power3.out" },
+          scrollTrigger: {
+            trigger: panel,
+            start: "top 78%",
+            once: true,
           },
-        );
+        });
+        panelTimelines.push(panelTimeline);
+
+        if (label) {
+          panelTimeline.from(label, {
+            autoAlpha: 0,
+            y: -20,
+            duration: 0.35,
+          });
+        }
+        if (headingSplit) {
+          panelTimeline.from(
+            headingSplit.lines,
+            {
+              autoAlpha: 0,
+              yPercent: 110,
+              duration: 0.65,
+              stagger: 0.1,
+              ease: "power4.out",
+            },
+            label ? "<0.08" : 0,
+          );
+        }
+        if (paragraphs.length) {
+          panelTimeline.from(
+            paragraphs,
+            {
+              autoAlpha: 0,
+              y: 22,
+              duration: 0.5,
+              stagger: 0.1,
+            },
+            headingSplit ? "<0.2" : "<0.08",
+          );
+        }
+        if (note) {
+          panelTimeline.from(
+            note,
+            {
+              autoAlpha: 0,
+              y: 26,
+              rotation: -3,
+              duration: 0.45,
+            },
+            ">-0.18",
+          );
+        }
+        if (media) {
+          panelTimeline.from(
+            media,
+            {
+              autoAlpha: 0,
+              y: 56,
+              scale: 0.93,
+              duration: 0.65,
+            },
+            ">-0.12",
+          );
+        }
+        if (decoration) {
+          panelTimeline.from(
+            decoration,
+            {
+              autoAlpha: 0,
+              ...getDecorationMotion(index),
+              duration: 0.7,
+            },
+            media ? "<0.08" : ">-0.12",
+          );
+        }
       });
+
+      const finalCard = section.querySelector<HTMLElement>(
+        "[data-about-final-card]",
+      );
+      if (finalCard) {
+        const finalLabel = finalCard.querySelector<HTMLElement>(
+          "[data-about-final-label]",
+        );
+        const finalTitle = finalCard.querySelector<HTMLElement>(
+          "[data-about-final-title]",
+        );
+        const finalCta = finalCard.querySelector<HTMLElement>(
+          "[data-about-final-cta]",
+        );
+        const finalTitleSplit = finalTitle
+          ? new SplitText(finalTitle, { type: "lines", mask: "lines" })
+          : null;
+        if (finalTitleSplit) headingSplits.push(finalTitleSplit);
+
+        const finalTimeline = gsap.timeline({
+          defaults: { ease: "power3.out" },
+          scrollTrigger: {
+            trigger: finalTitle ?? finalCard,
+            start: "top 85%",
+            once: true,
+          },
+        });
+        if (finalLabel) {
+          finalTimeline.from(finalLabel, {
+            autoAlpha: 0,
+            y: -20,
+            duration: 0.4,
+          });
+        }
+        if (finalTitleSplit) {
+          finalTimeline.from(
+            finalTitleSplit.lines,
+            {
+              autoAlpha: 0,
+              yPercent: 110,
+              stagger: 0.12,
+              duration: 0.75,
+              ease: "power4.out",
+            },
+            "<0.1",
+          );
+        }
+        if (finalCta) {
+          finalTimeline.from(
+            finalCta,
+            {
+              autoAlpha: 0,
+              y: 30,
+              scale: 0.92,
+              duration: 0.55,
+              ease: "back.out(1.7)",
+            },
+            ">-0.2",
+          );
+        }
+        panelTimelines.push(finalTimeline);
+      }
+
+      return () => {
+        panelTimelines.forEach((timeline) => timeline.kill());
+        headingSplits.forEach((headingSplit) => headingSplit.revert());
+      };
     });
   }, section);
 

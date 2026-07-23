@@ -32,7 +32,6 @@ export function createPodcastContentAnimation(refs: PodcastContentRefs) {
       y: 150,
       duration: 0.8,
       autoAlpha: 0,
-      scale: 0.8,
       ease: "power2.out",
     })
       .from(
@@ -43,12 +42,12 @@ export function createPodcastContentAnimation(refs: PodcastContentRefs) {
           ease: "power2.out",
           duration: 0.7,
         },
-        "-=0.03",
+        "<0.4",
       )
       .from(
         desc,
         { autoAlpha: 0, y: 30, ease: "power2.out", duration: 0.7 },
-        "<",
+        "<0.1",
       )
       .from(
         buttonsArray,
@@ -59,7 +58,7 @@ export function createPodcastContentAnimation(refs: PodcastContentRefs) {
           duration: 0.7,
           stagger: 0.04,
         },
-        "<",
+        "<0.1",
       )
       .from(
         greenFlower,
@@ -67,10 +66,10 @@ export function createPodcastContentAnimation(refs: PodcastContentRefs) {
           autoAlpha: 0,
           y: 80,
           x: 40,
-          ease: "elastic.out(0.7, 0.4)",
-          duration: 2.4,
+          ease: "power2.out",
+          duration: 0.8,
         },
-        "-=0.2",
+        "<0.2",
       )
       .from(
         pinkFlower,
@@ -78,8 +77,8 @@ export function createPodcastContentAnimation(refs: PodcastContentRefs) {
           autoAlpha: 0,
           y: 80,
           x: 40,
-          ease: "elastic.out(0.7, 0.4)",
-          duration: 2.4,
+          ease: "power2.out",
+          duration: 0.8,
         },
         "<",
       );

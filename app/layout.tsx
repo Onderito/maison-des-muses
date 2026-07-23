@@ -32,9 +32,10 @@ export default function RootLayout({
       className={` ${ahsing.variable} ${seasons.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[url('/images/background-mds.webp')] bg-cover bg-center bg-fixed bg-no-repeat">
-        <div className="p-4">
+        <div className="fixed inset-x-0 top-0 z-[100] p-4">
           <Navbar />
         </div>
+        <div aria-hidden="true" className="h-[76px] shrink-0 xl:h-[104px]" />
         <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>
