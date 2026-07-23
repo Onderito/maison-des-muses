@@ -18,7 +18,6 @@ export default function HeroSection() {
   const greenFlowerRef = useRef<HTMLImageElement>(null);
   const pinkFlowerRef = useRef<HTMLImageElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
-  const scrollHintRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     return createHeroIntroAnimation({
@@ -37,7 +36,6 @@ export default function HeroSection() {
       image: imageRef.current,
       pinkFlower: pinkFlowerRef.current,
       greenFlower: greenFlowerRef.current,
-      scrollHint: scrollHintRef.current,
     });
   }, []);
 

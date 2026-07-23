@@ -95,11 +95,10 @@ type HeroScrollRefs = {
   image: HTMLImageElement | null;
   pinkFlower: HTMLImageElement | null;
   greenFlower: HTMLImageElement | null;
-  scrollHint: HTMLDivElement | null;
 };
 
 export function createHeroScrollAnimation(refs: HeroScrollRefs) {
-  const { hero, image, pinkFlower, greenFlower, scrollHint } = refs;
+  const { hero, image, pinkFlower, greenFlower } = refs;
   if (!hero || !image) return () => {};
 
   const ctx = gsap.context(() => {
@@ -131,7 +130,7 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
     });
 
     zoomTl
-      .to(scrollHint, { opacity: 0, duration: 0.1, ease: "none" }, 0)
+
       .to(
         image,
         {
