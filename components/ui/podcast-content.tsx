@@ -48,13 +48,14 @@ export default function PodcastContent() {
           w-[300px] 
           sm:w-[380px] 
           xl:w-[520px] 
+          h-auto
           object-contain 
           pointer-events-none
         "
         src="/images/green-flower-mds.png"
         alt=""
-        width={520}
-        height={520}
+        width={796}
+        height={833}
       />
 
       <Image
@@ -68,14 +69,15 @@ export default function PodcastContent() {
           w-[280px] 
           sm:w-[380px] 
           xl:w-[520px] 
+          h-auto
           object-contain 
           rotate-[-20deg]
           pointer-events-none
         "
         src="/images/pink-flower-mds.png"
         alt=""
-        width={520}
-        height={520}
+        width={796}
+        height={995}
       />
 
       {/* Contenu par-dessus */}

@@ -71,30 +71,34 @@ export default function HeroSection() {
         </div>
 
         <div className="relative w-full">
-          <img
+          <Image
             ref={imageRef}
-            className="w-full max-w-none mt-10 rounded-[48px] relative z-10 object-cover"
-            src="https://d3p3fw3rutb1if.cloudfront.net/photos/76134893-d352-4e8b-806a-6b44734a865f"
+            className="relative z-10 mt-10 h-[clamp(300px,45vw,620px)] w-full max-w-none rounded-[48px] object-cover object-center"
+            src="/images/about-me/julia-home.webp"
             alt="Julia"
+            width={1920}
+            height={1080}
             onLoad={() => ScrollTrigger.refresh()}
           />
         </div>
 
         <Image
           ref={pinkFlowerRef}
-          className="absolute w-[250px] -right-30 top-70 -rotate-10 xl:-rotate-20 z-20 md:w-[350px] md:top-50 md:-right-35 lg:w-[550px] lg:-right-60 xl:w-[795px] xl:top-0 xl:-right-70"
-          src="/images/pink-flower-mds.png"
-          alt="rose"
-          width={1000}
-          height={1000}
+          className="absolute h-auto w-[250px] -right-30 top-70 -rotate-10 xl:-rotate-20 z-20 md:w-[350px] md:top-50 md:-right-35 lg:w-[550px] lg:-right-60 xl:w-[795px] xl:top-0 xl:-right-70"
+          src="/images/pink-flower.webp"
+          alt=""
+          width={796}
+          height={995}
+          loading="eager"
         />
         <Image
           ref={greenFlowerRef}
-          className="absolute w-[250px] -left-28 top-70 z-0 md:w-[350px] md:top-50 lg:w-[550px] lg:-left-60 xl:w-[795px]"
-          src="/images/green-flower-mds.png"
-          alt="rose"
-          width={1000}
-          height={1000}
+          className="absolute h-auto w-[250px] -left-28 top-70 z-0 md:w-[350px] md:top-50 lg:w-[550px] lg:-left-60 xl:w-[795px]"
+          src="/images/green-flower.webp"
+          alt=""
+          width={796}
+          height={833}
+          loading="eager"
         />
       </div>
     </div>

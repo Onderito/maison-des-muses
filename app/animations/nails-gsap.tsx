@@ -37,6 +37,7 @@ export function createNailsIntroAnimation(refs: NailsIntroRefs) {
   const st = ScrollTrigger.create({
     trigger: section,
     start: "top 30%",
+    end: () => `+=${window.innerHeight * 0.64}`,
     once: true,
     onEnter: (self) => {
       if (self.scroll() > self.start + window.innerHeight) {

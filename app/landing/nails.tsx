@@ -75,7 +75,7 @@ export default function Nails() {
                 ref={(el) => {
                   if (el) cardEls.current[index] = el;
                 }}
-                className={`relative h-[440px] shrink-0 lg:h-[515px] w-[300px] lg:w-[335px] ${rotations[index % rotations.length]}`}
+                className={`relative aspect-[335/516] w-[300px] shrink-0 lg:w-[335px] ${rotations[index % rotations.length]}`}
               >
                 <img
                   src="/images/pink-card-mds.webp"
