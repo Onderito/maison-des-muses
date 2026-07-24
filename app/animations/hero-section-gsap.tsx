@@ -15,15 +15,8 @@ type HeroIntroRefs = {
 };
 
 export function createHeroIntroAnimation(refs: HeroIntroRefs) {
-  const {
-    label,
-    title,
-    desc,
-    button,
-    imageReveal,
-    pinkFlower,
-    greenFlower,
-  } = refs;
+  const { label, title, desc, button, imageReveal, pinkFlower, greenFlower } =
+    refs;
   if (!title) return () => {};
 
   const media = gsap.matchMedia();
@@ -102,6 +95,7 @@ export function createHeroIntroAnimation(refs: HeroIntroRefs) {
       .from(
         imageReveal,
         {
+          autoAlpha: 0,
           y: 28,
           scale: 0.98,
           transformOrigin: "center top",
