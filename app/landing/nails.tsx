@@ -62,11 +62,11 @@ export default function Nails() {
         id="ongles"
         ref={sectionRef}
         aria-labelledby="nails-title"
-        className="relative overflow-hidden motion-reduce:h-auto motion-reduce:overflow-visible lg:h-screen lg:overflow-visible"
+        className="relative overflow-hidden motion-reduce:h-auto motion-reduce:overflow-visible md:h-screen lg:overflow-visible"
       >
         <div
           ref={contentRef}
-          className="relative z-10 flex flex-col items-center px-4 pb-8 pt-16 text-center motion-reduce:relative motion-reduce:inset-auto motion-reduce:min-h-[360px] lg:pointer-events-none lg:absolute lg:inset-0 lg:justify-center lg:py-0"
+          className="relative z-10 flex flex-col items-center px-4 pb-8 pt-16 text-center motion-reduce:relative motion-reduce:inset-auto motion-reduce:min-h-[360px] md:pointer-events-none md:absolute md:inset-0 md:justify-center md:py-0"
         >
           <p
             ref={labelRef}
@@ -91,11 +91,11 @@ export default function Nails() {
           </p>
         </div>
 
-        <div className="relative z-20 w-full snap-x snap-mandatory overflow-x-auto scroll-px-[9vw] pb-14 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:contents">
+        <div className="relative z-20 w-full snap-x snap-mandatory overflow-x-auto scroll-px-[9vw] pb-14 pt-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:absolute md:inset-0 md:z-50 md:flex md:items-center md:justify-center md:overflow-visible md:pb-0 md:pt-0 lg:contents">
           <ul
             ref={cardsRef}
             aria-label="Galerie des créations ongulaires"
-            className="flex w-max flex-row items-center gap-5 px-[9vw] lg:relative lg:z-30 lg:grid lg:w-full lg:grid-cols-2 lg:items-start lg:justify-items-center lg:gap-x-16 lg:gap-y-10 lg:px-0 xl:gap-x-[min(36vw,620px)] xl:gap-y-16"
+            className="flex w-max flex-row items-center gap-5 px-[9vw] md:w-full md:flex-col md:gap-10 md:px-0 lg:relative lg:z-30 lg:grid lg:grid-cols-2 lg:items-start lg:justify-items-center lg:gap-x-16 lg:gap-y-10 xl:gap-x-[min(36vw,620px)] xl:gap-y-16"
           >
             {nailCreations.map((picture, index) => (
               <li
@@ -103,7 +103,7 @@ export default function Nails() {
                 ref={(el) => {
                   if (el) cardEls.current[index] = el;
                 }}
-                className={`relative aspect-[335/516] w-[min(300px,82vw)] shrink-0 snap-center rounded-[52px] shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_12px_32px_rgba(74,85,5,0.12)] ${desktopWidths[index % desktopWidths.length]} ${rotations[index % rotations.length]}`}
+                className={`relative aspect-[335/516] w-[min(300px,82vw)] shrink-0 snap-center rounded-[52px] shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_12px_32px_rgba(74,85,5,0.12)] md:snap-none ${desktopWidths[index % desktopWidths.length]} ${rotations[index % rotations.length]}`}
               >
                 <Image
                   src="/images/pink-card-mds.webp"

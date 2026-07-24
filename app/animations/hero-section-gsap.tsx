@@ -201,6 +201,93 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
   const media = gsap.matchMedia();
 
   media.add(
+    "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
+    () => {
+      const ctx = gsap.context(() => {
+        const layoutOffset = () => {
+          let el: HTMLElement | null = image;
+          let top = 0;
+          let left = 0;
+          while (el && el !== hero) {
+            top += el.offsetTop;
+            left += el.offsetLeft;
+            el = el.offsetParent as HTMLElement | null;
+          }
+          return { top, left };
+        };
+
+        const viewportWidth = () => document.documentElement.clientWidth;
+        const viewportHeight = () => window.innerHeight;
+        const coverScale = () =>
+          Math.max(
+            viewportWidth() / image.offsetWidth,
+            viewportHeight() / image.offsetHeight,
+          );
+
+        gsap.set(image, {
+          force3D: true,
+          transformOrigin: "center center",
+          willChange: "transform",
+        });
+
+        const zoomTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: hero,
+            start: "top top",
+            end: () => `+=${Math.max(760, viewportHeight())}`,
+            scrub: true,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        zoomTl
+          .to(
+            content,
+            {
+              autoAlpha: 0,
+              y: -12,
+              duration: 0.2,
+              ease: "power1.in",
+            },
+            0,
+          )
+          .to(
+            image,
+            {
+              x: () =>
+                viewportWidth() / 2 -
+                (layoutOffset().left + image.offsetWidth / 2),
+              y: () =>
+                viewportHeight() / 2 -
+                (layoutOffset().top + image.offsetHeight / 2),
+              scale: coverScale,
+              borderRadius: 0,
+              zIndex: 50,
+              ease: "power1.out",
+              duration: 0.5,
+            },
+            0,
+          )
+          .to(
+            pinkFlower,
+            { xPercent: 100, duration: 0.3, ease: "power1.out" },
+            "<",
+          )
+          .to(
+            greenFlower,
+            { xPercent: -100, duration: 0.3, ease: "power1.out" },
+            "<",
+          );
+      }, hero);
+
+      return () => ctx.revert();
+    },
+  );
+
+  media.add(
     "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
     () => {
       const ctx = gsap.context(() => {
