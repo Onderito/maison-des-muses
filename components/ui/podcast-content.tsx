@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import useDeferredAnimation from "@/app/hook/use-deferred-animation";
 import { useRef } from "react";
+import { createPodcastContentAnimation } from "@/app/animations/podcast-content-gsap";
+import useStableLayoutAnimation from "@/app/hook/use-stable-layout-animation";
 
 export default function PodcastContent() {
   const containerRef = useRef<HTMLElement>(null);
@@ -13,9 +14,7 @@ export default function PodcastContent() {
   const pinkFlowerRef = useRef<HTMLImageElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
 
-  useDeferredAnimation(containerRef, async () => {
-    const { createPodcastContentAnimation } =
-      await import("@/app/animations/podcast-content-gsap");
+  useStableLayoutAnimation(() => {
     return createPodcastContentAnimation({
       container: containerRef.current,
       label: labelRef.current,
@@ -130,9 +129,10 @@ export default function PodcastContent() {
           >
             <Image
               src="/images/tiktok-icon.webp"
-              alt="tiktok icon"
+              alt=""
               width={20}
               height={20}
+              className="size-5"
             />
             <span className="text-sm">TikTok</span>
             <svg

@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
 import PriceNails from "@/components/ui/price-nails";
+import useStableLayoutAnimation from "../hook/use-stable-layout-animation";
 import {
   createNailsIntroAnimation,
   createNailsScrollAnimation,
@@ -38,23 +39,23 @@ export default function Nails() {
   const descRef = useRef<HTMLParagraphElement>(null);
   const cardEls = useRef<HTMLLIElement[]>([]);
 
-  useLayoutEffect(() => {
+  useStableLayoutAnimation(() => {
     return createNailsScrollAnimation({
       section: sectionRef.current,
       cards: cardsRef.current,
       cardEls: cardEls.current,
       content: contentRef.current,
     });
-  }, []);
+  });
 
-  useLayoutEffect(() => {
+  useStableLayoutAnimation(() => {
     return createNailsIntroAnimation({
       section: sectionRef.current,
       label: labelRef.current,
       title: titleRef.current,
       desc: descRef.current,
     });
-  }, []);
+  });
 
   return (
     <>
@@ -110,6 +111,7 @@ export default function Nails() {
                   alt=""
                   fill
                   sizes="(min-width: 1024px) 342px, 300px"
+                  loading="eager"
                   className="rounded-[52px]"
                 />
                 <div className="absolute inset-0 z-20 overflow-hidden rounded-[52px] p-1">

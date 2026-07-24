@@ -2,8 +2,9 @@
 
 import gsap from "gsap";
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PinkButton from "./ui/pink-button";
+import useStableLayoutAnimation from "@/app/hook/use-stable-layout-animation";
 
 const links = [
   { label: "A propos", href: "/#a-propos" },
@@ -17,7 +18,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
-  useLayoutEffect(() => {
+  useStableLayoutAnimation(() => {
     const media = gsap.matchMedia();
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
@@ -38,7 +39,7 @@ export default function Navbar() {
     });
 
     return () => media.revert();
-  }, []);
+  });
 
   useEffect(() => {
     if (!open) return;
@@ -69,7 +70,7 @@ export default function Navbar() {
     >
       <div className="mobile-navigation-glass flex w-full items-center justify-between gap-3 rounded-[28px] p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.72),0_8px_24px_rgba(74,85,5,0.08)] sm:rounded-[52px] sm:p-2.5 xl:bg-white/50 xl:backdrop-blur-xl xl:backdrop-saturate-150">
         <Link
-          href="/#accueil"
+          href="/"
           aria-label="Revenir à l’accueil"
           onClick={() => setOpen(false)}
           className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full px-2 font-ahsing text-[18px] tracking-[-0.7px] text-title outline-none transition-[color,background-color,transform] duration-200 ease-out hover:bg-white/45 focus-visible:bg-white/70 focus-visible:ring-2 focus-visible:ring-accent/60 active:scale-[0.96] sm:px-3 sm:text-[20px]"

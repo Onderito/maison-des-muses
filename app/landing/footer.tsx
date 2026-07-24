@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import GreenButton from "@/components/ui/green-button";
-import useDeferredAnimation from "../hook/use-deferred-animation";
 import { useRef } from "react";
+import { createFooterAnimation } from "../animations/footer-gsap";
+import useStableLayoutAnimation from "../hook/use-stable-layout-animation";
 
 const socials = [
   {
@@ -75,10 +76,7 @@ export default function Footer() {
   const socialMediaRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
 
-  useDeferredAnimation(containerRef, async () => {
-    const { createFooterAnimation } = await import(
-      "../animations/footer-gsap"
-    );
+  useStableLayoutAnimation(() => {
     return createFooterAnimation({
       container: containerRef.current,
       title: titleRef.current,

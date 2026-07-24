@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
 import { createAboutMeAnimation } from "../animations/about-me-gsap";
+import useStableLayoutAnimation from "../hook/use-stable-layout-animation";
 
 type Story = {
   label: string;
@@ -95,7 +96,7 @@ export default function AboutMe() {
   const horizontalRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useStableLayoutAnimation(() => {
     return createAboutMeAnimation({
       section: sectionRef.current,
       title: titleRef.current,
@@ -103,7 +104,7 @@ export default function AboutMe() {
       horizontal: horizontalRef.current,
       track: trackRef.current,
     });
-  }, []);
+  });
 
   return (
     <section id="a-propos" ref={sectionRef} className="overflow-x-clip">
@@ -184,7 +185,7 @@ export default function AboutMe() {
                     fill
                     unoptimized={story.image.startsWith("http")}
                     sizes="(min-width: 1280px) 44vw, (min-width: 1024px) 44vw, 88vw"
-                    loading="lazy"
+                    loading="eager"
                     className="object-cover object-top"
                   />
                 </div>
@@ -195,7 +196,7 @@ export default function AboutMe() {
                     sizes="(min-width: 1024px) 44vw, 88vw"
                     quality={75}
                     fill
-                    loading="lazy"
+                    loading="eager"
                     className="object-cover object-top"
                   />
                 </div>
@@ -210,6 +211,7 @@ export default function AboutMe() {
                 alt=""
                 width={story.decorationWidth}
                 height={story.decorationHeight}
+                loading="eager"
                 className={`pointer-events-none absolute z-20 max-w-none ${story.decorationClassName}`}
               />
 

@@ -2,7 +2,8 @@
 
 import PinkButton from "@/components/ui/pink-button";
 import Image from "next/image";
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
+import useStableLayoutAnimation from "../hook/use-stable-layout-animation";
 import {
   createHeroIntroAnimation,
   createHeroScrollAnimation,
@@ -20,7 +21,7 @@ export default function HeroSection() {
   const pinkFlowerRef = useRef<HTMLImageElement>(null);
   const heroRef = useRef<HTMLElement>(null);
 
-  useLayoutEffect(() => {
+  useStableLayoutAnimation(() => {
     return createHeroIntroAnimation({
       label: labelRef.current,
       title: titleRef.current,
@@ -30,9 +31,9 @@ export default function HeroSection() {
       pinkFlower: pinkFlowerRef.current,
       greenFlower: greenFlowerRef.current,
     });
-  }, []);
+  });
 
-  useLayoutEffect(() => {
+  useStableLayoutAnimation(() => {
     return createHeroScrollAnimation({
       hero: heroRef.current,
       content: contentRef.current,
@@ -40,7 +41,7 @@ export default function HeroSection() {
       pinkFlower: pinkFlowerRef.current,
       greenFlower: greenFlowerRef.current,
     });
-  }, []);
+  });
 
   return (
     <section
@@ -127,6 +128,7 @@ export default function HeroSection() {
           width={796}
           height={995}
           sizes="(min-width: 1280px) 795px, (min-width: 1024px) 550px, (min-width: 768px) 350px, 250px"
+          loading="eager"
           fetchPriority="low"
         />
         <Image
@@ -138,6 +140,7 @@ export default function HeroSection() {
           width={796}
           height={833}
           sizes="(min-width: 1280px) 795px, (min-width: 1024px) 550px, (min-width: 768px) 350px, 250px"
+          loading="eager"
           fetchPriority="low"
         />
       </div>

@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useRef } from "react";
 
-import useDeferredAnimation from "@/app/hook/use-deferred-animation";
+import { createPriceNailsAnimation } from "@/app/animations/price-nails-gsap";
+import useStableLayoutAnimation from "@/app/hook/use-stable-layout-animation";
 import PinkButton from "./pink-button";
 
 const nailServices = [
@@ -55,10 +56,7 @@ export default function PriceNails() {
   const sectionRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
-  useDeferredAnimation(sectionRef, async () => {
-    const { createPriceNailsAnimation } = await import(
-      "@/app/animations/price-nails-gsap"
-    );
+  useStableLayoutAnimation(() => {
     return createPriceNailsAnimation({
       section: sectionRef.current,
       image: imageRef.current,

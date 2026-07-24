@@ -1,8 +1,9 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
 import ServiceCard from "@/components/ui/service-card";
 import Image from "next/image";
+import useStableLayoutAnimation from "../hook/use-stable-layout-animation";
 import {
   createHeadSpaAnimation,
   createHeadSpaFlower,
@@ -18,7 +19,7 @@ export default function HeadSap() {
   const trackRef = useRef<HTMLDivElement>(null);
   const flowerRef = useRef<HTMLImageElement>(null);
 
-  useLayoutEffect(() => {
+  useStableLayoutAnimation(() => {
     return createHeadSpaAnimation({
       container: sectionRef.current,
       label: labelRef.current,
@@ -26,22 +27,22 @@ export default function HeadSap() {
       desc: descRef.current,
       track: trackRef.current,
     });
-  }, []);
+  });
 
-  useLayoutEffect(() => {
+  useStableLayoutAnimation(() => {
     return createHeadSpaFlower({
       section: sectionRef.current,
       flower: flowerRef.current,
     });
-  }, []);
+  });
 
-  useLayoutEffect(() => {
+  useStableLayoutAnimation(() => {
     return createHeadSpaHorizontalScroll({
       section: sectionRef.current,
       wrapper: wrapperRef.current,
       track: trackRef.current,
     });
-  }, []);
+  });
 
   return (
     <section

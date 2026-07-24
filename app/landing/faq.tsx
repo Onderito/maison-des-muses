@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
+import useStableLayoutAnimation from "../hook/use-stable-layout-animation";
 import {
   closeFaqItem,
   openFaqItem,
@@ -50,7 +51,7 @@ export default function Faq() {
   const leftLayoutRef = useRef<HTMLElement>(null);
   const rightLayoutRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useStableLayoutAnimation(() => {
     return createFaqAnimation({
       container: containerRef.current,
       label: labelRef.current,
@@ -60,7 +61,7 @@ export default function Faq() {
       leftLayout: leftLayoutRef.current,
       rightLayout: rightLayoutRef.current,
     });
-  }, []);
+  });
 
   const toggle = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
