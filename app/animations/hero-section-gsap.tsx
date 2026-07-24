@@ -9,13 +9,21 @@ type HeroIntroRefs = {
   title: HTMLHeadingElement | null;
   desc: HTMLParagraphElement | null;
   button: HTMLDivElement | null;
-  image: HTMLImageElement | null;
+  imageReveal: HTMLDivElement | null;
   pinkFlower: HTMLImageElement | null;
   greenFlower: HTMLImageElement | null;
 };
 
 export function createHeroIntroAnimation(refs: HeroIntroRefs) {
-  const { label, title, desc, button, image, pinkFlower, greenFlower } = refs;
+  const {
+    label,
+    title,
+    desc,
+    button,
+    imageReveal,
+    pinkFlower,
+    greenFlower,
+  } = refs;
   if (!title) return () => {};
 
   const media = gsap.matchMedia();
@@ -92,6 +100,16 @@ export function createHeroIntroAnimation(refs: HeroIntroRefs) {
         "-=0.25",
       )
       .from(
+        imageReveal,
+        {
+          y: 28,
+          scale: 0.98,
+          transformOrigin: "center top",
+          duration: 0.7,
+        },
+        "-=0.28",
+      )
+      .from(
         pinkFlower,
         {
           autoAlpha: 0,
@@ -122,10 +140,13 @@ export function createHeroIntroAnimation(refs: HeroIntroRefs) {
   });
 
   media.add("(prefers-reduced-motion: reduce)", () => {
-    gsap.set([label, title, desc, button, image, pinkFlower, greenFlower], {
-      autoAlpha: 1,
-      clearProps: "transform,filter",
-    });
+    gsap.set(
+      [label, title, desc, button, imageReveal, pinkFlower, greenFlower],
+      {
+        autoAlpha: 1,
+        clearProps: "transform,filter",
+      },
+    );
   });
 
   return () => media.revert();

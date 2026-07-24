@@ -14,6 +14,7 @@ export default function HeroSection() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
+  const imageRevealRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const greenFlowerRef = useRef<HTMLImageElement>(null);
   const pinkFlowerRef = useRef<HTMLImageElement>(null);
@@ -25,7 +26,7 @@ export default function HeroSection() {
       title: titleRef.current,
       desc: descRef.current,
       button: buttonRef.current,
-      image: imageRef.current,
+      imageReveal: imageRevealRef.current,
       pinkFlower: pinkFlowerRef.current,
       greenFlower: greenFlowerRef.current,
     });
@@ -96,7 +97,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="relative w-full">
+        <div ref={imageRevealRef} className="relative w-full">
           <Image
             ref={imageRef}
             className="relative z-10 mt-10 h-[clamp(300px,45vw,620px)] w-full max-w-none rounded-[48px] object-cover object-[center_38%] outline outline-1 -outline-offset-1 outline-black/10 shadow-[0_2px_4px_rgba(0,0,0,0.04),0_18px_48px_rgba(74,85,5,0.1)] md:object-center"
