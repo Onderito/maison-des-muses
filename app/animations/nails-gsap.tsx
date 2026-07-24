@@ -120,7 +120,8 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
             ...baseTrigger,
             start: "top top",
             end: () => `+=${scrollDistance()}`,
-            scrub: 0.6,
+            scrub: true,
+            anticipatePin: 1,
           },
         });
 
@@ -129,7 +130,6 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
           {
             autoAlpha: 0,
             y: -12,
-            filter: "blur(4px)",
             ease: "power1.in",
             duration: 0.18,
           },

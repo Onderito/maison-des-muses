@@ -19,7 +19,7 @@ function MissingInformation({ children }: Readonly<{ children: string }>) {
 
 export default function LegalNoticesPage() {
   return (
-    <article className="mt-10 rounded-[36px] border border-white/70 bg-white/55 px-6 py-10 shadow-sm backdrop-blur-md sm:px-10 lg:px-14 lg:py-14">
+    <article className="mt-10 rounded-[36px] border border-white/70 bg-white px-6 py-10 shadow-sm sm:px-10 lg:bg-white/55 lg:px-14 lg:py-14 lg:backdrop-blur-md">
       <header>
         <p className="font-seasons text-[14px] uppercase tracking-[0.12em] text-accent">
           Informations légales

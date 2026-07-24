@@ -85,3 +85,11 @@ body {
     visibility: hidden;
   }
 }
+
+@media (max-width: 79.999rem) {
+  .mobile-navigation-glass {
+    background-color: rgba(255, 255, 255, 0.88);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+  }
+}

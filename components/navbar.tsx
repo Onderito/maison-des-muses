@@ -69,7 +69,7 @@ export default function Navbar() {
       aria-label="Navigation principale"
       className="relative z-[100] mx-auto w-full max-w-[1120px]"
     >
-      <div className="flex w-full items-center justify-between gap-3 rounded-[28px] bg-white/50 p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.72),0_8px_24px_rgba(74,85,5,0.08)] backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[52px] sm:p-2.5">
+      <div className="mobile-navigation-glass flex w-full items-center justify-between gap-3 rounded-[28px] p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.72),0_8px_24px_rgba(74,85,5,0.08)] sm:rounded-[52px] sm:p-2.5 xl:bg-white/50 xl:backdrop-blur-2xl xl:backdrop-saturate-150">
         <Link
           href="/#accueil"
           aria-label="Revenir à l’accueil"
@@ -125,32 +125,32 @@ export default function Navbar() {
         id="mobile-navigation"
         aria-hidden={!open}
         inert={!open}
-        className={`absolute inset-x-0 top-full z-[110] mt-2 flex origin-top flex-col gap-3 rounded-[28px] bg-white/45 p-2.5 shadow-[0_0_0_1px_rgba(255,255,255,0.75),0_18px_50px_rgba(74,85,5,0.14)] backdrop-blur-2xl backdrop-saturate-150 transition-[opacity,transform,filter,visibility] duration-200 ease-out motion-reduce:transform-none motion-reduce:transition-none sm:rounded-[38px] sm:p-3 xl:hidden ${
+        className={`mobile-navigation-glass absolute inset-x-0 top-full z-[110] mt-2 flex origin-top flex-col gap-3 rounded-[28px] p-2.5 shadow-[0_0_0_1px_rgba(255,255,255,0.75),0_18px_50px_rgba(74,85,5,0.14)] transition-[opacity,transform,filter,visibility] duration-200 ease-out motion-reduce:transform-none motion-reduce:transition-none sm:rounded-[38px] sm:p-3 xl:hidden ${
           open
             ? "visible translate-y-0 scale-100 opacity-100 blur-0"
             : "invisible -translate-y-2 scale-[0.98] opacity-0 blur-[4px]"
         }`}
       >
-          <ul className="flex flex-col font-seasons text-[17px] tracking-[-0.45px] text-desc">
-            {links.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="flex min-h-12 items-center rounded-[20px] px-4 outline-none transition-[color,background-color,transform] duration-200 ease-out hover:bg-white/55 hover:text-title focus-visible:bg-white/75 focus-visible:text-title focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/60 active:scale-[0.96]"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <PinkButton
-            className="min-h-12 w-full outline-none transition-[transform,filter,box-shadow] duration-200 focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 active:scale-[0.96]"
-            href="https://www.instagram.com/maisondesmuses_julia/"
-            onClick={() => setOpen(false)}
-          >
-            Prendre rendez-vous
-          </PinkButton>
+        <ul className="flex flex-col font-seasons text-[17px] tracking-[-0.45px] text-desc">
+          {links.map((link) => (
+            <li key={link.label}>
+              <Link
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="flex min-h-12 items-center rounded-[20px] px-4 outline-none transition-[color,background-color,transform] duration-200 ease-out hover:bg-white/55 hover:text-title focus-visible:bg-white/75 focus-visible:text-title focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/60 active:scale-[0.96]"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <PinkButton
+          className="min-h-12 w-full outline-none transition-[transform,filter,box-shadow] duration-200 focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 active:scale-[0.96]"
+          href="https://www.instagram.com/maisondesmuses_julia/"
+          onClick={() => setOpen(false)}
+        >
+          Prendre rendez-vous
+        </PinkButton>
       </div>
     </nav>
   );

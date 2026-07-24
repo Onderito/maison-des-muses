@@ -137,7 +137,7 @@ export default function Faq() {
             fill
             sizes="(min-width: 1024px) 48vw, 100vw"
           />
-          <figcaption className="absolute bottom-4 left-4 rounded-full bg-white/70 px-4 py-2 font-seasons text-[13px] text-title shadow-[0_0_0_1px_rgba(255,255,255,0.7),0_6px_18px_rgba(0,0,0,0.08)] backdrop-blur-xl">
+          <figcaption className="absolute bottom-4 left-4 rounded-full bg-white px-4 py-2 font-seasons text-[13px] text-title shadow-[0_0_0_1px_rgba(255,255,255,0.7),0_6px_18px_rgba(0,0,0,0.08)] lg:bg-white/70 lg:backdrop-blur-xl">
             Saint-Martin-sur-Nohain
           </figcaption>
         </figure>

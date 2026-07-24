@@ -153,7 +153,7 @@ export default function PodcastContent() {
 
           <span
             aria-disabled="true"
-            className="inline-flex h-12 min-w-[194px] items-center justify-center gap-2 rounded-full bg-white/75 px-4 text-title shadow-[0_6px_18px_rgba(0,0,0,0.08)] backdrop-blur-md"
+            className="inline-flex h-12 min-w-[194px] items-center justify-center gap-2 rounded-full bg-white px-4 text-title shadow-[0_6px_18px_rgba(0,0,0,0.08)] lg:bg-white/75 lg:backdrop-blur-md"
           >
             <Image
               src="/images/youtubee-icon.webp"
