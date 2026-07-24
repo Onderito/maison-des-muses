@@ -108,12 +108,13 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
     "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
     () => {
       const ctx = gsap.context(() => {
+        const items = cardEls.filter(Boolean);
         const travel = () =>
           (window.innerHeight + cards.offsetHeight) / 2;
         const scrollDistance = () =>
           Math.min(2400, Math.max(1400, cards.offsetHeight * 0.36));
 
-        gsap.set(cards, { y: travel });
+        gsap.set(items, { y: travel });
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -125,7 +126,7 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
           },
         });
 
-        tl.to(cards, { y: () => -travel(), ease: "none", duration: 1 }, 0).to(
+        tl.to(items, { y: () => -travel(), ease: "none", duration: 1 }, 0).to(
           content,
           {
             autoAlpha: 0,

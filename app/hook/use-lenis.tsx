@@ -12,6 +12,18 @@ const useLenis = () => {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    if (ScrollTrigger.isTouch === 1) {
+      const normalizer = ScrollTrigger.normalizeScroll({
+        allowNestedScroll: true,
+        lockAxis: true,
+      });
+
+      return () => {
+        normalizer?.kill();
+        ScrollTrigger.normalizeScroll(false);
+      };
+    }
+
     lenisRef.current = new Lenis({
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -9 * t)),
