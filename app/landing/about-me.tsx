@@ -185,7 +185,6 @@ export default function AboutMe() {
                     fill
                     unoptimized={story.image.startsWith("http")}
                     sizes="(min-width: 1280px) 44vw, (min-width: 1024px) 44vw, 88vw"
-                    loading="eager"
                     className="object-cover object-top"
                   />
                 </div>
@@ -196,7 +195,6 @@ export default function AboutMe() {
                     sizes="(min-width: 1024px) 44vw, 88vw"
                     quality={75}
                     fill
-                    loading="eager"
                     className="object-cover object-top"
                   />
                 </div>
