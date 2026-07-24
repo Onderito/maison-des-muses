@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import ClientWrapper from "@/components/ui/client-wrapper";
 import localFont from "next/font/local";
 import Navbar from "@/components/navbar";
