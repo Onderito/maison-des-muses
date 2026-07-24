@@ -149,7 +149,8 @@ export default function Faq() {
           {faqs.map((f, index) => (
             <article
               key={f.question}
-              className={`overflow-hidden rounded-[28px] font-seasons transition-[background-color,box-shadow,transform] duration-200 ease-out ${
+              onClick={() => toggle(index)}
+              className={`cursor-pointer overflow-hidden rounded-[28px] font-seasons transition-[background-color,box-shadow,transform] duration-200 ease-out ${
                 openIndex === index
                   ? "bg-card shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_12px_32px_rgba(74,85,5,0.1)]"
                   : "bg-white/35 shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_2px_6px_rgba(74,85,5,0.04)] hover:-translate-y-0.5 hover:bg-white/50 hover:shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_8px_22px_rgba(74,85,5,0.08)]"
@@ -160,7 +161,6 @@ export default function Faq() {
                 id={`faq-question-${index}`}
                 aria-expanded={openIndex === index}
                 aria-controls={`faq-answer-${index}`}
-                onClick={() => toggle(index)}
                 className="flex min-h-[76px] w-full cursor-pointer items-center gap-4 rounded-[28px] px-5 py-4 text-left outline-none transition-transform duration-150 ease-out focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/60 active:scale-[0.96] xl:min-h-[88px] xl:px-7"
               >
                 <span className="shrink-0 self-start pt-1 text-[12px] tracking-[0.12em] text-accent">

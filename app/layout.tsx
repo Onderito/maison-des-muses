@@ -33,7 +33,11 @@ export default function RootLayout({
       lang="fr"
       className={` ${ahsing.variable} ${seasons.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[url('/images/background-mds.webp')] bg-cover bg-center bg-fixed bg-no-repeat">
+      <body className="relative isolate flex min-h-full flex-col">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 -z-10 bg-[url('/images/background-mds.webp')] bg-cover bg-center bg-no-repeat"
+        />
         <div className="fixed inset-x-0 top-0 z-[100] p-4">
           <Navbar />
         </div>
