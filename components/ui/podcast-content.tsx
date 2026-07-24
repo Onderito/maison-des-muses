@@ -14,9 +14,8 @@ export default function PodcastContent() {
   const buttonsRef = useRef<HTMLDivElement>(null);
 
   useDeferredAnimation(containerRef, async () => {
-    const { createPodcastContentAnimation } = await import(
-      "@/app/animations/podcast-content-gsap"
-    );
+    const { createPodcastContentAnimation } =
+      await import("@/app/animations/podcast-content-gsap");
     return createPodcastContentAnimation({
       container: containerRef.current,
       label: labelRef.current,
@@ -36,8 +35,9 @@ export default function PodcastContent() {
     >
       <Image
         src="/images/podcast-bg-mds.webp"
-        alt=""
+        alt="pink background"
         fill
+        quality={90}
         sizes="(min-width: 1280px) calc(100vw - 96px), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)"
         className="object-cover"
       />
