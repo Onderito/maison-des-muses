@@ -97,10 +97,13 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div ref={imageRevealRef} className="relative w-full">
+        <div
+          ref={imageRevealRef}
+          className="relative mt-10 h-[clamp(300px,45vw,620px)] w-full"
+        >
           <Image
             ref={imageRef}
-            className="relative z-10 mt-10 h-[clamp(300px,45vw,620px)] w-full max-w-none rounded-[48px] object-cover object-[center_38%] outline outline-1 -outline-offset-1 outline-black/10 shadow-[0_2px_4px_rgba(0,0,0,0.04),0_18px_48px_rgba(74,85,5,0.1)] md:object-center"
+            className="absolute left-0 top-0 z-10 h-full w-full max-w-none rounded-[48px] object-cover object-[center_38%] outline outline-1 -outline-offset-1 outline-black/10 shadow-[0_2px_4px_rgba(0,0,0,0.04),0_18px_48px_rgba(74,85,5,0.1)] md:object-center"
             src="/images/about-me/julia-home.webp"
             alt="Julia, fondatrice de Maison des Muses dans son institut"
             width={1920}

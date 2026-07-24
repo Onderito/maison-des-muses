@@ -80,7 +80,7 @@ const stories: Story[] = [
     image: "/images/about-me/georges.webp",
     decoration: "/images/about-me/cushion.webp",
     decorationClassName:
-      "-right-[16%] bottom-[2%] w-[58%] rotate-[8deg] sm:-right-[8%] sm:w-[46%] lg:-right-[4%] lg:bottom-[38%] lg:w-[32%] xl:-right-[4%] xl:top-[6%] xl:bottom-auto xl:w-[46%]",
+      "-right-[16%] top-[48%] w-[58%] rotate-[8deg] sm:-right-[8%] sm:top-[46%] sm:w-[46%] lg:-right-[4%] lg:top-[12%] lg:w-[32%] xl:-right-[4%] xl:-top-[4%] xl:w-[46%]",
     decorationWidth: 1084,
     decorationHeight: 723,
     alt: "Le cocon de Maison des Muses",

@@ -180,27 +180,8 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
         return { top, left };
       };
 
-      const coverScale = () =>
-        Math.max(
-          window.innerWidth / image.offsetWidth,
-          window.innerHeight / image.offsetHeight,
-        );
-
-      const targetX = () => {
-        const scale = coverScale();
-        return (
-          (window.innerWidth - image.offsetWidth * scale) / 2 -
-          layoutOffset().left
-        );
-      };
-
-      const targetY = () => {
-        const scale = coverScale();
-        return (
-          (window.innerHeight - image.offsetHeight * scale) / 2 -
-          layoutOffset().top
-        );
-      };
+      const viewportWidth = () => document.documentElement.clientWidth;
+      const viewportHeight = () => window.innerHeight;
 
       const zoomTl = gsap.timeline({
         scrollTrigger: {
@@ -230,9 +211,10 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
         .to(
           image,
           {
-            x: targetX,
-            y: targetY,
-            scale: coverScale,
+            x: () => -layoutOffset().left,
+            y: () => -layoutOffset().top,
+            width: viewportWidth,
+            height: viewportHeight,
             borderRadius: 0,
             zIndex: 50,
             ease: "power1.out",
