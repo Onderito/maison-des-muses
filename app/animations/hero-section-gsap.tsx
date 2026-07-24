@@ -23,6 +23,47 @@ export function createHeroIntroAnimation(refs: HeroIntroRefs) {
 
   media.add("(prefers-reduced-motion: no-preference)", () => {
     const split = new SplitText(title, { type: "words" });
+
+    gsap.set(label, {
+      autoAlpha: 0,
+      y: 12,
+      filter: "blur(4px)",
+    });
+    gsap.set(title, { autoAlpha: 1 });
+    gsap.set(split.words, {
+      autoAlpha: 0,
+      y: 20,
+      filter: "blur(4px)",
+    });
+    gsap.set(desc, {
+      autoAlpha: 0,
+      y: 12,
+      filter: "blur(4px)",
+    });
+    gsap.set(button, {
+      autoAlpha: 0,
+      y: 12,
+      filter: "blur(4px)",
+    });
+    gsap.set(imageReveal, {
+      autoAlpha: 0,
+      y: 28,
+      scale: 0.98,
+      transformOrigin: "center top",
+    });
+    gsap.set(pinkFlower, {
+      autoAlpha: 0,
+      x: 120,
+      y: 48,
+      scale: 0.94,
+    });
+    gsap.set(greenFlower, {
+      autoAlpha: 0,
+      x: -120,
+      y: 48,
+      scale: 0.94,
+    });
+
     const floating = gsap
       .timeline({ paused: true })
       .to(pinkFlower, {
@@ -55,72 +96,71 @@ export function createHeroIntroAnimation(refs: HeroIntroRefs) {
     });
 
     intro
-      .from(label, {
-        autoAlpha: 0,
-        y: 12,
-        filter: "blur(4px)",
+      .to(label, {
+        autoAlpha: 1,
+        y: 0,
+        filter: "blur(0px)",
         duration: 0.45,
       })
-      .from(
+      .to(
         split.words,
         {
-          autoAlpha: 0,
-          y: 20,
-          filter: "blur(4px)",
+          autoAlpha: 1,
+          y: 0,
+          filter: "blur(0px)",
           stagger: 0.08,
           duration: 0.55,
         },
         "-=0.25",
       )
-      .from(
+      .to(
         desc,
         {
-          autoAlpha: 0,
-          y: 12,
-          filter: "blur(4px)",
+          autoAlpha: 1,
+          y: 0,
+          filter: "blur(0px)",
           duration: 0.5,
         },
         "-=0.28",
       )
-      .from(
+      .to(
         button,
         {
-          autoAlpha: 0,
-          y: 12,
-          filter: "blur(4px)",
+          autoAlpha: 1,
+          y: 0,
+          filter: "blur(0px)",
           duration: 0.45,
         },
         "-=0.25",
       )
-      .from(
+      .to(
         imageReveal,
         {
-          autoAlpha: 0,
-          y: 28,
-          scale: 0.98,
-          transformOrigin: "center top",
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
           duration: 0.7,
         },
         "-=0.28",
       )
-      .from(
+      .to(
         pinkFlower,
         {
-          autoAlpha: 0,
-          x: 120,
-          y: 48,
-          scale: 0.94,
+          autoAlpha: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
           duration: 0.8,
         },
         "-=0.3",
       )
-      .from(
+      .to(
         greenFlower,
         {
-          autoAlpha: 0,
-          x: -120,
-          y: 48,
-          scale: 0.94,
+          autoAlpha: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
           duration: 0.8,
         },
         "<0.08",

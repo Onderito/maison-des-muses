@@ -53,6 +53,7 @@ export default function HeroSection() {
         <div ref={contentRef} className="flex flex-col items-center">
           <p
             ref={labelRef}
+            data-gsap-intro
             className="font-seasons text-[13px] uppercase tracking-[0.16em] text-accent sm:text-[14px] text-center"
           >
             Institut de beauté · Saint-Martin-sur-Nohain
@@ -60,18 +61,20 @@ export default function HeroSection() {
           <h1
             id="hero-title"
             ref={titleRef}
+            data-gsap-intro
             className="heading-1 mt-4 max-w-[1040px] text-balance text-center text-title"
           >
             Bienvenue chez Maison des Muses
           </h1>
           <p
             ref={descRef}
+            data-gsap-intro
             className="body-text mt-5 max-w-[620px] text-pretty text-center font-seasons text-desc"
           >
             Chaque muse mérite un lieu à son image. Un espace où chaque geste
             est pensé avec précision et chaque instant, avec intention.
           </p>
-          <div ref={buttonRef} className="mt-6 flex gap-4">
+          <div ref={buttonRef} data-gsap-intro className="mt-6 flex gap-4">
             <PinkButton
               className="min-h-12 w-full border-0 pl-4 pr-3.5 shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_8px_20px_rgba(238,94,138,0.2)] duration-150 hover:scale-[1.02] active:scale-[0.96]"
               href="https://www.instagram.com/maisondesmuses_julia/"
@@ -99,6 +102,7 @@ export default function HeroSection() {
 
         <div
           ref={imageRevealRef}
+          data-gsap-intro
           className="relative mt-10 h-[clamp(300px,45vw,620px)] w-full"
         >
           <Image
@@ -116,6 +120,7 @@ export default function HeroSection() {
 
         <Image
           ref={pinkFlowerRef}
+          data-gsap-intro
           className="absolute h-auto w-[250px] -right-30 top-70 -rotate-10 xl:-rotate-20 z-20 md:w-[350px] md:top-50 md:-right-35 lg:w-[550px] lg:-right-60 xl:w-[795px] xl:top-0 xl:-right-70"
           src="/images/pink-flower.webp"
           alt=""
@@ -126,6 +131,7 @@ export default function HeroSection() {
         />
         <Image
           ref={greenFlowerRef}
+          data-gsap-intro
           className="absolute h-auto w-[250px] -left-28 top-70 z-0 md:w-[350px] md:top-50 lg:w-[550px] lg:-left-60 xl:w-[795px]"
           src="/images/green-flower.webp"
           alt=""

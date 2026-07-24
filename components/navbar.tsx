@@ -21,14 +21,22 @@ export default function Navbar() {
     const media = gsap.matchMedia();
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.from(navRef.current, {
-        opacity: 0,
-        y: -16,
-        filter: "blur(4px)",
-        ease: "power3.out",
-        duration: 0.65,
-        delay: 0.1,
-      });
+      gsap.fromTo(
+        navRef.current,
+        {
+          autoAlpha: 0,
+          y: -16,
+          filter: "blur(4px)",
+        },
+        {
+          autoAlpha: 1,
+          y: 0,
+          filter: "blur(0px)",
+          ease: "power3.out",
+          duration: 0.65,
+          delay: 0.1,
+        },
+      );
     });
 
     return () => media.revert();
@@ -57,6 +65,7 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
+      data-gsap-intro
       aria-label="Navigation principale"
       className="relative z-[100] mx-auto w-full max-w-[1120px]"
     >
