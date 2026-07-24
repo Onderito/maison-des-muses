@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import ClientWrapper from "@/components/ui/client-wrapper";
 import localFont from "next/font/local";
 import Navbar from "@/components/navbar";
@@ -38,6 +39,7 @@ export default function RootLayout({
         </div>
         <div aria-hidden="true" className="h-[76px] shrink-0 xl:h-[104px]" />
         <ClientWrapper>{children}</ClientWrapper>
+        <Analytics />
       </body>
     </html>
   );
