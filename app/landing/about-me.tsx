@@ -30,7 +30,7 @@ const stories: Story[] = [
     image: "/images/about-me/julia-home.webp",
     decoration: "/images/about-me/monstera.webp",
     decorationClassName:
-      "-right-[18%] top-[58%] w-[62%] rotate-[8deg] sm:-right-[10%] sm:w-[48%] lg:-right-[4%] lg:top-[18%] lg:w-[30%] xl:-right-[7%] xl:-top-[4%] xl:w-[52%]",
+      "-right-[18%] top-[58%] w-[62%] rotate-[8deg] sm:-right-[10%] sm:w-[48%] lg:-right-[4%] lg:top-[18%] lg:w-[30%] xl:-right-[7%] xl:-top-[8%] xl:w-[52%]",
     decorationWidth: 1241,
     decorationHeight: 827,
     alt: "Julia, fondatrice de Maison des Muses",
@@ -47,7 +47,7 @@ const stories: Story[] = [
     image: "/images/about-me/julia-work.webp",
     decoration: "/images/about-me/nails.webp",
     decorationClassName:
-      "-right-[9%] top-[55%] w-[38%] rotate-[8deg] sm:-right-[4%] sm:w-[30%] lg:right-[1%] lg:top-[16%] lg:w-[22%] xl:-right-[2%] xl:-top-[4%] xl:w-[34%]",
+      "-right-[9%] top-[55%] w-[38%] rotate-[8deg] sm:-right-[4%] sm:w-[30%] lg:right-[1%] lg:top-[16%] lg:w-[22%] xl:-right-[10%] xl:-top-[-12%] xl:w-[34%]",
     decorationWidth: 737,
     decorationHeight: 1105,
     alt: "Un moment de soin à Maison des Muses",
