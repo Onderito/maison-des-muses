@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
 import PriceNails from "@/components/ui/price-nails";
 import {
@@ -7,40 +8,49 @@ import {
   createNailsScrollAnimation,
 } from "../animations/nails-gsap";
 
+const nailCreations = [
+  "/images/nails/first-nails.webp",
+  "/images/nails/second-nails.webp",
+  "/images/nails/third-nails.webp",
+  "/images/nails/fourth-nails.webp",
+  "/images/nails/fiveth-nails.webp",
+  "/images/nails/sixth-nails.webp",
+  "/images/nails/seventh-nails.webp",
+  "/images/nails/heighth-nails.webp",
+  "/images/nails/nineth-nails.webp",
+  "/images/nails/tenth-nails.webp",
+] as const;
+
+const rotations = ["-rotate-3", "rotate-2", "-rotate-2", "rotate-3"] as const;
+const desktopWidths = [
+  "lg:w-[320px]",
+  "lg:w-[335px]",
+  "lg:w-[328px]",
+  "lg:w-[342px]",
+] as const;
+
 export default function Nails() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const labelRef = useRef<HTMLParagraphElement>(null);
+  const cardsRef = useRef<HTMLUListElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
-  const cardEls = useRef<HTMLDivElement[]>([]);
-
-  const nails = [
-    { picture: "/images/nails/first-nails.webp" },
-    { picture: "/images/nails/second-nails.webp" },
-    { picture: "/images/nails/third-nails.webp" },
-    { picture: "/images/nails/fourth-nails.webp" },
-    { picture: "/images/nails/fiveth-nails.webp" },
-    { picture: "/images/nails/sixth-nails.webp" },
-    { picture: "/images/nails/seventh-nails.webp" },
-    { picture: "/images/nails/heighth-nails.webp" },
-    { picture: "/images/nails/nineth-nails.webp" },
-    { picture: "/images/nails/tenth-nails.webp" },
-  ];
-  const rotations = ["-rotate-3", "rotate-2", "-rotate-2", "rotate-3"];
+  const cardEls = useRef<HTMLLIElement[]>([]);
 
   useLayoutEffect(() => {
     return createNailsScrollAnimation({
       section: sectionRef.current,
       cards: cardsRef.current,
       cardEls: cardEls.current,
-      title: titleRef.current,
-      desc: descRef.current,
+      content: contentRef.current,
     });
   }, []);
 
   useLayoutEffect(() => {
     return createNailsIntroAnimation({
       section: sectionRef.current,
+      label: labelRef.current,
       title: titleRef.current,
       desc: descRef.current,
     });
@@ -48,52 +58,76 @@ export default function Nails() {
 
   return (
     <>
-      <div
+      <section
         id="ongles"
         ref={sectionRef}
-        className="relative h-screen overflow-hidden lg:overflow-visible"
+        aria-labelledby="nails-title"
+        className="relative h-screen overflow-hidden motion-reduce:h-auto motion-reduce:overflow-visible lg:overflow-visible"
       >
-        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 text-center">
-          <h2 ref={titleRef} className="heading-2 text-title">
+        <div
+          ref={contentRef}
+          className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center motion-reduce:relative motion-reduce:inset-auto motion-reduce:min-h-[360px]"
+        >
+          <p
+            ref={labelRef}
+            className="font-seasons text-[13px] uppercase tracking-[0.16em] text-accent sm:text-[14px]"
+          >
+            Le carnet des Muses
+          </p>
+          <h2
+            id="nails-title"
+            ref={titleRef}
+            className="heading-2 mt-4 max-w-[720px] text-balance text-title"
+          >
             Des créations uniques
           </h2>
-          <p ref={descRef} className="body-text text-desc font-seasons">
+          <p
+            ref={descRef}
+            className="body-text mt-5 max-w-[620px] text-pretty font-seasons text-desc"
+          >
             Découvrez les dernières créations réalisées au salon. Des poses
-            soignées, <br className="hidden md:block xl:hidden" />
-            des détails précieux, <br className="hidden xl:block" /> et toujours
-            une touche qui vous est propre.
+            soignées, des détails précieux et toujours une touche qui vous est
+            propre.
           </p>
         </div>
-        <div className="absolute inset-0 z-50 flex items-center justify-center lg:contents">
-          <div
+
+        <div className="absolute inset-0 z-50 flex items-center justify-center motion-reduce:relative motion-reduce:inset-auto motion-reduce:block lg:contents">
+          <ul
             ref={cardsRef}
-            className="flex w-full flex-col items-center gap-12 lg:relative lg:z-30 lg:grid lg:grid-cols-2 lg:items-start lg:justify-items-center lg:gap-x-16 lg:gap-y-10 xl:gap-x-[min(36vw,620px)] xl:gap-y-16"
+            aria-label="Galerie des créations ongulaires"
+            className="flex w-full flex-col items-center gap-10 motion-reduce:grid motion-reduce:grid-cols-1 motion-reduce:justify-items-center motion-reduce:gap-6 motion-reduce:px-4 motion-reduce:pb-12 sm:motion-reduce:grid-cols-2 lg:relative lg:z-30 lg:grid lg:grid-cols-2 lg:items-start lg:justify-items-center lg:gap-x-16 lg:gap-y-10 xl:gap-x-[min(36vw,620px)] xl:gap-y-16"
           >
-            {nails.map((nail, index) => (
-              <div
-                key={index}
+            {nailCreations.map((picture, index) => (
+              <li
+                key={picture}
                 ref={(el) => {
                   if (el) cardEls.current[index] = el;
                 }}
-                className={`relative aspect-[335/516] w-[300px] shrink-0 lg:w-[335px] ${rotations[index % rotations.length]}`}
+                className={`relative aspect-[335/516] w-[min(300px,82vw)] shrink-0 rounded-[52px] shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_12px_32px_rgba(74,85,5,0.12)] ${desktopWidths[index % desktopWidths.length]} ${rotations[index % rotations.length]}`}
               >
-                <img
+                <Image
                   src="/images/pink-card-mds.webp"
                   alt=""
-                  className="absolute inset-0 h-full w-full rounded-[52px]"
+                  fill
+                  sizes="(min-width: 1024px) 342px, 300px"
+                  className="rounded-[52px]"
                 />
                 <div className="absolute inset-0 z-20 overflow-hidden rounded-[52px] p-1">
-                  <img
-                    className="h-full w-full rounded-[46px] object-cover"
-                    src={nail.picture}
-                    alt="Création ongles"
-                  />
+                  <div className="relative h-full w-full overflow-hidden rounded-[48px] outline outline-1 -outline-offset-1 outline-black/10">
+                    <Image
+                      className="object-cover"
+                      src={picture}
+                      alt={`Création ongulaire ${index + 1} réalisée à Maison des Muses`}
+                      fill
+                      sizes="(min-width: 1024px) 334px, 292px"
+                    />
+                  </div>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
-      </div>
+      </section>
       <PriceNails />
     </>
   );

@@ -4,14 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
-if (typeof window !== "undefined") {
-  if ("scrollRestoration" in window.history) {
-    window.history.scrollRestoration = "manual";
-  }
-  window.addEventListener("load", () => ScrollTrigger.refresh());
-}
-
 type HeroIntroRefs = {
+  label: HTMLParagraphElement | null;
   title: HTMLHeadingElement | null;
   desc: HTMLParagraphElement | null;
   button: HTMLDivElement | null;
@@ -21,139 +15,218 @@ type HeroIntroRefs = {
 };
 
 export function createHeroIntroAnimation(refs: HeroIntroRefs) {
-  const { title, desc, button, image, pinkFlower, greenFlower } = refs;
+  const { label, title, desc, button, image, pinkFlower, greenFlower } = refs;
+  if (!title) return () => {};
 
-  const split = new SplitText(title, { type: "words" });
+  const media = gsap.matchMedia();
 
-  const tl = gsap.timeline({
-    defaults: { ease: "power3.out", duration: 0.9 },
-
-    onComplete: () => ScrollTrigger.refresh(),
-  });
-
-  tl.from(split.words, {
-    opacity: 0,
-    y: 50,
-    rotate: 6,
-    scale: 0.8,
-    stagger: 0.08,
-    ease: "back.out(1.7)",
-    duration: 0.7,
-  })
-    .from(
-      desc,
-      { opacity: 0, y: 30, ease: "back.out(1.7)", duration: 0.7 },
-      "-=0.4",
-    )
-    .from(
-      button,
-      { opacity: 0, y: 30, ease: "back.out(1.7)", duration: 0.7 },
-      "-=0.5",
-    )
-    .from(image, { opacity: 0, y: 50, scale: 0.75 }, "-=0.5")
-    .from(
-      [pinkFlower, greenFlower],
-      {
-        y: 200,
-        x: (index) => (index === 0 ? 370 : -320),
-        scale: 0.75,
-        ease: "power2.inOut",
-        duration: 1.2,
-        stagger: 0.15,
-      },
-      "<",
-    )
-    .to(pinkFlower, {
-      y: "+=24",
-      rotation: -29,
-      duration: 4.5,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true,
-    })
-    .to(
-      greenFlower,
-      {
-        y: "+=24",
-        rotation: 10,
-        duration: 4.5,
+  media.add("(prefers-reduced-motion: no-preference)", () => {
+    const split = new SplitText(title, { type: "words" });
+    const floating = gsap
+      .timeline({ paused: true })
+      .to(pinkFlower, {
+        y: "+=16",
+        rotation: -24,
+        duration: 6,
         ease: "sine.inOut",
         repeat: -1,
         yoyo: true,
-      },
-      "<",
-    );
+      })
+      .to(
+        greenFlower,
+        {
+          y: "+=16",
+          rotation: 5,
+          duration: 6,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+        },
+        "<",
+      );
 
-  return () => {
-    tl.kill();
-    split.revert();
-  };
+    const intro = gsap.timeline({
+      defaults: { ease: "power3.out" },
+      onComplete: () => {
+        floating.play();
+        ScrollTrigger.refresh();
+      },
+    });
+
+    intro
+      .from(label, {
+        autoAlpha: 0,
+        y: 12,
+        filter: "blur(4px)",
+        duration: 0.45,
+      })
+      .from(
+        split.words,
+        {
+          autoAlpha: 0,
+          y: 20,
+          filter: "blur(4px)",
+          stagger: 0.08,
+          duration: 0.55,
+        },
+        "-=0.25",
+      )
+      .from(
+        desc,
+        {
+          autoAlpha: 0,
+          y: 12,
+          filter: "blur(4px)",
+          duration: 0.5,
+        },
+        "-=0.28",
+      )
+      .from(
+        button,
+        {
+          autoAlpha: 0,
+          y: 12,
+          filter: "blur(4px)",
+          duration: 0.45,
+        },
+        "-=0.25",
+      )
+      .from(
+        image,
+        {
+          autoAlpha: 0,
+          y: 32,
+          scale: 0.96,
+          filter: "blur(4px)",
+          duration: 0.7,
+        },
+        "-=0.3",
+      )
+      .from(
+        pinkFlower,
+        {
+          autoAlpha: 0,
+          x: 120,
+          y: 48,
+          scale: 0.94,
+          duration: 0.8,
+        },
+        "-=0.55",
+      )
+      .from(
+        greenFlower,
+        {
+          autoAlpha: 0,
+          x: -120,
+          y: 48,
+          scale: 0.94,
+          duration: 0.8,
+        },
+        "<0.08",
+      );
+
+    return () => {
+      intro.kill();
+      floating.kill();
+      split.revert();
+    };
+  });
+
+  media.add("(prefers-reduced-motion: reduce)", () => {
+    gsap.set([label, title, desc, button, image, pinkFlower, greenFlower], {
+      autoAlpha: 1,
+      clearProps: "transform,filter",
+    });
+  });
+
+  return () => media.revert();
 }
 
 type HeroScrollRefs = {
-  hero: HTMLDivElement | null;
+  hero: HTMLElement | null;
+  content: HTMLDivElement | null;
   image: HTMLImageElement | null;
   pinkFlower: HTMLImageElement | null;
   greenFlower: HTMLImageElement | null;
 };
 
 export function createHeroScrollAnimation(refs: HeroScrollRefs) {
-  const { hero, image, pinkFlower, greenFlower } = refs;
+  const { hero, content, image, pinkFlower, greenFlower } = refs;
   if (!hero || !image) return () => {};
 
-  const ctx = gsap.context(() => {
-    gsap.set(image, { force3D: true, willChange: "transform, width, height" });
+  const media = gsap.matchMedia();
 
-    const layoutOffset = () => {
-      let el: HTMLElement | null = image;
-      let top = 0;
-      let left = 0;
-      while (el && el !== hero) {
-        top += el.offsetTop;
-        left += el.offsetLeft;
-        el = el.offsetParent as HTMLElement | null;
-      }
-      return { top, left };
-    };
+  media.add("(prefers-reduced-motion: no-preference)", () => {
+    const ctx = gsap.context(() => {
+      gsap.set(image, { force3D: true, willChange: "transform" });
 
-    const zoomTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: hero,
-        start: "top top",
-        end: "+=1200",
-        scrub: 0.3,
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    });
+      const layoutOffset = () => {
+        let el: HTMLElement | null = image;
+        let top = 0;
+        let left = 0;
+        while (el && el !== hero) {
+          top += el.offsetTop;
+          left += el.offsetLeft;
+          el = el.offsetParent as HTMLElement | null;
+        }
+        return { top, left };
+      };
 
-    zoomTl
-
-      .to(
-        image,
-        {
-          width: () => window.innerWidth,
-          height: () => window.innerHeight,
-          maxWidth: "none",
-          x: () => -layoutOffset().left,
-          y: () => -layoutOffset().top,
-          borderRadius: 0,
-          zIndex: 50,
-          ease: "power1.out",
-          duration: 0.5,
+      const zoomTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: hero,
+          start: "top top",
+          end: "+=1200",
+          scrub: 0.3,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
         },
-        0,
-      )
-      .to(pinkFlower, { xPercent: 100, duration: 0.3, ease: "power1.out" }, "<")
-      .to(
-        greenFlower,
-        { xPercent: -100, duration: 0.3, ease: "power1.out" },
-        "<",
-      )
-      .set(image, { willChange: "auto" }, ">");
-  }, hero);
+      });
 
-  return () => ctx.revert();
+      zoomTl
+        .to(
+          content,
+          {
+            autoAlpha: 0,
+            y: -12,
+            filter: "blur(4px)",
+            duration: 0.2,
+            ease: "power1.in",
+          },
+          0,
+        )
+        .to(
+          image,
+          {
+            width: () => window.innerWidth,
+            height: () => window.innerHeight,
+            maxWidth: "none",
+            x: () => -layoutOffset().left,
+            y: () => -layoutOffset().top,
+            borderRadius: 0,
+            zIndex: 50,
+            ease: "power1.out",
+            duration: 0.5,
+          },
+          0,
+        )
+        .to(
+          pinkFlower,
+          { xPercent: 100, duration: 0.3, ease: "power1.out" },
+          "<",
+        )
+        .to(
+          greenFlower,
+          { xPercent: -100, duration: 0.3, ease: "power1.out" },
+          "<",
+        )
+        .set(image, { willChange: "auto" }, ">");
+    }, hero);
+
+    return () => ctx.revert();
+  });
+
+  return () => media.revert();
 }

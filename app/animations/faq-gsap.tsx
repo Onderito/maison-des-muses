@@ -5,103 +5,184 @@ import { SplitText } from "gsap/SplitText";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 type FaqRefs = {
-  container: HTMLDivElement | null;
+  container: HTMLElement | null;
+  label: HTMLSpanElement | null;
   title: HTMLHeadingElement | null;
   desc: HTMLParagraphElement | null;
-  leftLayout: HTMLDivElement | null;
+  cta: HTMLDivElement | null;
+  leftLayout: HTMLElement | null;
   rightLayout: HTMLDivElement | null;
 };
 
 export function createFaqAnimation(refs: FaqRefs) {
-  const { container, title, desc, leftLayout, rightLayout } = refs;
+  const { container, label, title, desc, cta, leftLayout, rightLayout } = refs;
 
-  if (!container) return () => {};
+  if (!container || !title) return () => {};
+
   const ctx = gsap.context(() => {
-    const split = new SplitText(title, { type: "words" });
+    const media = gsap.matchMedia();
 
-    const rightLayoutItems = rightLayout
-      ? gsap.utils.toArray(rightLayout.children)
-      : [];
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      const split = new SplitText(title, { type: "words" });
+      const rightLayoutItems = rightLayout
+        ? gsap.utils.toArray(rightLayout.children)
+        : [];
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container,
-        start: "top 80%",
-        once: true,
-      },
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: "top 78%",
+          once: true,
+        },
+      });
+
+      tl.from(label, {
+        opacity: 0,
+        y: 12,
+        filter: "blur(4px)",
+        ease: "power3.out",
+        duration: 0.45,
+      })
+        .from(
+          split.words,
+          {
+            opacity: 0,
+            y: 20,
+            filter: "blur(4px)",
+            stagger: 0.08,
+            ease: "power3.out",
+            duration: 0.65,
+          },
+          "-=0.2",
+        )
+        .from(
+          desc,
+          {
+            opacity: 0,
+            y: 12,
+            filter: "blur(4px)",
+            ease: "power3.out",
+            duration: 0.55,
+          },
+          "-=0.35",
+        )
+        .from(
+          cta,
+          {
+            opacity: 0,
+            y: 12,
+            filter: "blur(4px)",
+            ease: "power3.out",
+            duration: 0.5,
+          },
+          "-=0.35",
+        )
+        .from(
+          leftLayout,
+          {
+            autoAlpha: 0,
+            y: 28,
+            scale: 0.97,
+            duration: 0.7,
+            ease: "power3.out",
+          },
+          "-=0.2",
+        )
+        .from(
+          rightLayoutItems,
+          {
+            autoAlpha: 0,
+            y: 20,
+            filter: "blur(4px)",
+            duration: 0.55,
+            ease: "power3.out",
+            stagger: 0.08,
+          },
+          "-=0.5",
+        );
+
+      return () => {
+        split.revert();
+      };
     });
-    tl.from(split.words, {
-      opacity: 0,
-      y: 50,
-      rotate: 6,
-      scale: 0.8,
-      stagger: 0.08,
-      ease: "back.out(1.7)",
-      duration: 0.7,
-    })
-      .from(
-        desc,
-        { opacity: 0, y: 30, ease: "back.out(1.7)", duration: 0.7 },
-        "-=0.4",
-      )
-      .from(
-        leftLayout,
-        {
-          autoAlpha: 0,
-          y: 120,
-          x: -100,
-          scale: 0.5,
-          duration: 0.6,
-          ease: "power2.out",
-        },
-        "<0.3",
-      )
-      .from(
-        rightLayoutItems,
-        {
-          autoAlpha: 0,
-          y: 40,
-          x: -40,
-          scale: 0.7,
-          duration: 0.6,
-          ease: "power2.out",
-          stagger: 0.02,
-        },
-        "<0.2",
-      );
 
-    return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
-      ctx.revert();
-      split.revert();
-    };
+    media.add("(prefers-reduced-motion: reduce)", () => {
+      gsap.set(
+        [
+          label,
+          title,
+          desc,
+          cta,
+          leftLayout,
+          ...(rightLayout?.children ?? []),
+        ],
+        {
+          clearProps: "transform,opacity,visibility,filter",
+        },
+      );
+    });
+
+    return () => media.revert();
   }, container);
+
+  return () => ctx.revert();
 }
 
 export function setFaqClosed(el: HTMLElement | null) {
   if (!el) return;
-  gsap.set(el, { height: 0, opacity: 0, overflow: "hidden" });
+  gsap.set(el, {
+    height: 0,
+    opacity: 0,
+    y: -6,
+    filter: "blur(4px)",
+    overflow: "hidden",
+  });
 }
 
 export function openFaqItem(el: HTMLElement | null) {
   if (!el) return;
   gsap.killTweensOf(el);
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    gsap.set(el, {
+      height: "auto",
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+    });
+    return;
+  }
+
   gsap.to(el, {
     height: "auto",
     opacity: 1,
-    duration: 0.45,
-    ease: "power2.out",
+    y: 0,
+    filter: "blur(0px)",
+    duration: 0.4,
+    ease: "power3.out",
   });
 }
 
 export function closeFaqItem(el: HTMLElement | null) {
   if (!el) return;
   gsap.killTweensOf(el);
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    gsap.set(el, {
+      height: 0,
+      opacity: 0,
+      y: 0,
+      filter: "blur(0px)",
+    });
+    return;
+  }
+
   gsap.to(el, {
     height: 0,
     opacity: 0,
-    duration: 0.35,
+    y: -6,
+    filter: "blur(4px)",
+    duration: 0.25,
     ease: "power2.inOut",
   });
 }

@@ -10,7 +10,8 @@ import {
 } from "../animations/head-spa-gsap";
 
 export default function HeadSap() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const labelRef = useRef<HTMLParagraphElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -20,6 +21,7 @@ export default function HeadSap() {
   useLayoutEffect(() => {
     return createHeadSpaAnimation({
       container: sectionRef.current,
+      label: labelRef.current,
       title: titleRef.current,
       desc: descRef.current,
       track: trackRef.current,
@@ -42,77 +44,90 @@ export default function HeadSap() {
   }, []);
 
   return (
-    <div
+    <section
       id="head-spa"
       ref={sectionRef}
+      aria-labelledby="head-spa-title"
       className="relative flex flex-col overflow-hidden"
     >
-      <div className="container flex flex-col gap-4 pb-0">
-        <div className="flex flex-col gap-4 items-center justify-center">
-          <h2
-            ref={titleRef}
-            className="heading-2 text-center leading-[0.88] text-title"
+      <div className="container relative z-10 flex flex-col pb-0">
+        <div className="flex flex-col items-center justify-center">
+          <p
+            ref={labelRef}
+            className="font-seasons text-[13px] uppercase tracking-[0.16em] text-accent sm:text-[14px]"
           >
-            Un rituel pensé <br /> pour tout relâcher
+            Head Spa japonais
+          </p>
+          <h2
+            id="head-spa-title"
+            ref={titleRef}
+            className="heading-2 mt-4 max-w-[720px] text-balance text-center leading-[0.88] text-title"
+          >
+            Un rituel pensé pour tout relâcher
           </h2>
           <p
             ref={descRef}
-            className="body-text text-desc font-seasons text-center"
+            className="body-text mt-5 max-w-[620px] text-pretty text-center font-seasons text-desc"
           >
             Inspiré des head spa japonais, chaque soin mêle massages
-            enveloppants et cascades d&apos;eau tiède.
-            <br className="hidden md:block" /> Choisissez votre rituel, on
-            s&apos;occupe du reste.
+            enveloppants, vapeur et cascades d&apos;eau tiède. Choisissez
+            simplement l&apos;intensité qui vous ressemble, on s&apos;occupe du
+            reste.
           </p>
         </div>
       </div>
 
       <div
         ref={wrapperRef}
-        className="mt-8 px-4 sm:px-8 md:px-12 xl:px-0 xl:overflow-hidden"
+        className="relative z-10 mt-8 px-4 sm:px-8 md:px-12 xl:mt-12 xl:overflow-hidden"
       >
         <div
           ref={trackRef}
-          className="flex flex-col gap-8 items-center xl:flex-row xl:items-stretch xl:w-max mt-4 lg:mt-10 xl:mt-16"
+          className="mt-4 flex flex-col items-center gap-8 lg:mt-8 xl:w-max xl:flex-row xl:items-start xl:gap-8"
         >
           <ServiceCard
-            image="/images/headspa-example.png"
-            title="L'Eveil de Thalie"
+            image="/images/head-spa-2.webp"
+            imageAlt="Rituel Head Spa L'Éveil de Thalie"
+            eyebrow="Rituel découverte"
+            title="L'Éveil de Thalie"
             description="Une parenthèse légère pour dénouer et respirer."
-            price="70€"
+            suitability="Idéal pour découvrir le Head Spa ou s'offrir une pause essentielle."
+            price="70 €"
             duration="30 à 45 minutes"
             features={[
-              "Diagnostique",
-              "Massage epaule, nuque, tête cuir chevelu avec différents outils",
-              "Cascade",
-              "Mousse détente + rinçage",
+              "Diagnostic personnalisé",
+              "Massage des épaules, de la nuque, de la tête et du cuir chevelu avec différents outils",
+              "Cascade d'eau tiède",
+              "Mousse détente et rinçage",
             ]}
           />
           <ServiceCard
-            image="/images/headspa-example.png"
+            image="/images/head-spa-1.webp"
+            imageAlt="Rituel Head Spa Le Souffle de Calliope"
+            eyebrow="Rituel signature"
             title="Le souffle de Calliope"
-            description="Une expérience intense pour un relâchement profond"
-            price="120€"
-            duration="1 heure 30"
+            description="Une expérience complète pour un relâchement profond."
+            suitability="Idéal pour celles qui souhaitent une déconnexion longue et enveloppante."
+            price="120 €"
+            duration="1 h 30"
             features={[
-              "Diagnostique",
-              "Massage epaule, nuque, tête cuir chevelu avec différents outils",
-              "Cascade",
-              "Vapeur enveloppante",
-              "Mousse détente + rinçage",
-              "Conseils post-séance",
+              "Diagnostic personnalisé",
+              "Massage des épaules, de la nuque, de la tête et du cuir chevelu avec différents outils",
+              "Cascade d'eau tiède et vapeur enveloppante",
+              "Mousse détente, rinçage et conseils post-séance",
             ]}
           />
         </div>
       </div>
       <Image
         ref={flowerRef}
-        className="hidden 2xl:block absolute w-[573px] h-[600px] -rotate-135 right-0  -top-36 z-0"
-        src="/images/green-flower-mds.png"
+        className="pointer-events-none absolute -right-24 -top-20 z-[2] hidden h-auto w-[340px] -rotate-135 opacity-90 md:block xl:-right-20 xl:-top-28 xl:w-[470px] 2xl:w-[560px]"
+        src="/images/green-flower.webp"
         alt=""
-        width={400}
-        height={400}
+        width={796}
+        height={833}
+        sizes="(min-width: 1536px) 560px, (min-width: 1280px) 470px, 340px"
       />
-    </div>
+    </section>
   );
 }

@@ -1,9 +1,7 @@
 "use client";
 
-import OutlineButton from "@/components/ui/outline-button";
 import PinkButton from "@/components/ui/pink-button";
 import Image from "next/image";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLayoutEffect, useRef } from "react";
 import {
   createHeroIntroAnimation,
@@ -11,16 +9,19 @@ import {
 } from "../animations/hero-section-gsap";
 
 export default function HeroSection() {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const labelRef = useRef<HTMLParagraphElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const greenFlowerRef = useRef<HTMLImageElement>(null);
   const pinkFlowerRef = useRef<HTMLImageElement>(null);
-  const heroRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
     return createHeroIntroAnimation({
+      label: labelRef.current,
       title: titleRef.current,
       desc: descRef.current,
       button: buttonRef.current,
@@ -33,6 +34,7 @@ export default function HeroSection() {
   useLayoutEffect(() => {
     return createHeroScrollAnimation({
       hero: heroRef.current,
+      content: contentRef.current,
       image: imageRef.current,
       pinkFlower: pinkFlowerRef.current,
       greenFlower: greenFlowerRef.current,
@@ -40,45 +42,70 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div
+    <section
       id="accueil"
       ref={heroRef}
+      aria-labelledby="hero-title"
       className="relative min-h-screen overflow-hidden"
     >
-      <div className="flex flex-col gap-4 items-center justify-center container pb-0">
-        <h1 ref={titleRef} className="heading-1 text-title text-center">
-          Bienvenue chez <br /> Maison des Muses
-        </h1>
-        <p
-          ref={descRef}
-          className="body-text font-seasons text-center text-desc"
-        >
-          Chaque muse mérite un lieu à son image. Un espace où chaque geste est
-          pensé <br className="hidden xl:block" />{" "}
-          <br className="hidden md:block xl:hidden" /> avec précision et chaque
-          instant, avec intention.
-        </p>
-        <div ref={buttonRef} className="flex gap-4 mt-6">
-          <PinkButton
-            className="w-full"
-            href="https://www.instagram.com/maisondesmuses_julia/"
+      <div className="container flex flex-col items-center justify-center pb-0">
+        <div ref={contentRef} className="flex flex-col items-center">
+          <p
+            ref={labelRef}
+            className="font-seasons text-[13px] uppercase tracking-[0.16em] text-accent sm:text-[14px] text-center"
           >
-            Prendre rendez-vous
-          </PinkButton>
-          {/* <OutlineButton className="w-full">
-            Découvrir l&apos;univers
-          </OutlineButton> */}
+            Institut de beauté · Saint-Martin-sur-Nohain
+          </p>
+          <h1
+            id="hero-title"
+            ref={titleRef}
+            className="heading-1 mt-4 max-w-[1040px] text-balance text-center text-title"
+          >
+            Bienvenue chez Maison des Muses
+          </h1>
+          <p
+            ref={descRef}
+            className="body-text mt-5 max-w-[620px] text-pretty text-center font-seasons text-desc"
+          >
+            Chaque muse mérite un lieu à son image. Un espace où chaque geste
+            est pensé avec précision et chaque instant, avec intention.
+          </p>
+          <div ref={buttonRef} className="mt-6 flex gap-4">
+            <PinkButton
+              className="min-h-12 w-full border-0 pl-4 pr-3.5 shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_8px_20px_rgba(238,94,138,0.2)] duration-150 hover:scale-[1.02] active:scale-[0.96]"
+              href="https://www.instagram.com/maisondesmuses_julia/"
+            >
+              <span className="inline-flex items-center gap-2">
+                Prendre rendez-vous
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 16 16"
+                  className="size-3.5"
+                  fill="none"
+                >
+                  <path
+                    d="M5 11 11 5m0 0H6.5M11 5v4.5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </PinkButton>
+          </div>
         </div>
 
         <div className="relative w-full">
           <Image
             ref={imageRef}
-            className="relative z-10 mt-10 h-[clamp(300px,45vw,620px)] w-full max-w-none rounded-[48px] object-cover object-center"
+            className="relative z-10 mt-10 h-[clamp(300px,45vw,620px)] w-full max-w-none rounded-[48px] object-cover object-[center_38%] outline outline-1 -outline-offset-1 outline-black/10 shadow-[0_2px_4px_rgba(0,0,0,0.04),0_18px_48px_rgba(74,85,5,0.1)] md:object-center"
             src="/images/about-me/julia-home.webp"
-            alt="Julia"
+            alt="Julia, fondatrice de Maison des Muses dans son institut"
             width={1920}
             height={1080}
-            onLoad={() => ScrollTrigger.refresh()}
+            sizes="(min-width: 1280px) calc(100vw - 96px), (min-width: 768px) calc(100vw - 96px), calc(100vw - 32px)"
+            loading="eager"
           />
         </div>
 
@@ -89,6 +116,7 @@ export default function HeroSection() {
           alt=""
           width={796}
           height={995}
+          sizes="(min-width: 1280px) 795px, (min-width: 1024px) 550px, (min-width: 768px) 350px, 250px"
           loading="eager"
         />
         <Image
@@ -98,9 +126,10 @@ export default function HeroSection() {
           alt=""
           width={796}
           height={833}
+          sizes="(min-width: 1280px) 795px, (min-width: 1024px) 550px, (min-width: 768px) 350px, 250px"
           loading="eager"
         />
       </div>
-    </div>
+    </section>
   );
 }
