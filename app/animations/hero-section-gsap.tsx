@@ -200,83 +200,86 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
 
   const media = gsap.matchMedia();
 
-  media.add("(prefers-reduced-motion: no-preference)", () => {
-    const ctx = gsap.context(() => {
-      gsap.set(image, {
-        force3D: true,
-        transformOrigin: "top left",
-        willChange: "transform",
-      });
+  media.add(
+    "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+    () => {
+      const ctx = gsap.context(() => {
+        gsap.set(image, {
+          force3D: true,
+          transformOrigin: "top left",
+          willChange: "transform",
+        });
 
-      const layoutOffset = () => {
-        let el: HTMLElement | null = image;
-        let top = 0;
-        let left = 0;
-        while (el && el !== hero) {
-          top += el.offsetTop;
-          left += el.offsetLeft;
-          el = el.offsetParent as HTMLElement | null;
-        }
-        return { top, left };
-      };
+        const layoutOffset = () => {
+          let el: HTMLElement | null = image;
+          let top = 0;
+          let left = 0;
+          while (el && el !== hero) {
+            top += el.offsetTop;
+            left += el.offsetLeft;
+            el = el.offsetParent as HTMLElement | null;
+          }
+          return { top, left };
+        };
 
-      const viewportWidth = () => document.documentElement.clientWidth;
-      const viewportHeight = () => window.innerHeight;
+        const viewportWidth = () => document.documentElement.clientWidth;
+        const viewportHeight = () => window.innerHeight;
 
-      const zoomTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: hero,
-          start: "top top",
-          end: "+=1200",
-          scrub: 0.3,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      zoomTl
-        .to(
-          content,
-          {
-            autoAlpha: 0,
-            y: -12,
-            filter: "blur(4px)",
-            duration: 0.2,
-            ease: "power1.in",
+        const zoomTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: hero,
+            start: "top top",
+            end: "+=1200",
+            scrub: 0.3,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
           },
-          0,
-        )
-        .to(
-          image,
-          {
-            x: () => -layoutOffset().left,
-            y: () => -layoutOffset().top,
-            width: viewportWidth,
-            height: viewportHeight,
-            borderRadius: 0,
-            zIndex: 50,
-            ease: "power1.out",
-            duration: 0.5,
-          },
-          0,
-        )
-        .to(
-          pinkFlower,
-          { xPercent: 100, duration: 0.3, ease: "power1.out" },
-          "<",
-        )
-        .to(
-          greenFlower,
-          { xPercent: -100, duration: 0.3, ease: "power1.out" },
-          "<",
-        )
-        .set(image, { willChange: "auto" }, ">");
-    }, hero);
+        });
 
-    return () => ctx.revert();
-  });
+        zoomTl
+          .to(
+            content,
+            {
+              autoAlpha: 0,
+              y: -12,
+              filter: "blur(4px)",
+              duration: 0.2,
+              ease: "power1.in",
+            },
+            0,
+          )
+          .to(
+            image,
+            {
+              x: () => -layoutOffset().left,
+              y: () => -layoutOffset().top,
+              width: viewportWidth,
+              height: viewportHeight,
+              borderRadius: 0,
+              zIndex: 50,
+              ease: "power1.out",
+              duration: 0.5,
+            },
+            0,
+          )
+          .to(
+            pinkFlower,
+            { xPercent: 100, duration: 0.3, ease: "power1.out" },
+            "<",
+          )
+          .to(
+            greenFlower,
+            { xPercent: -100, duration: 0.3, ease: "power1.out" },
+            "<",
+          )
+          .set(image, { willChange: "auto" }, ">");
+      }, hero);
+
+      return () => ctx.revert();
+    },
+  );
 
   return () => media.revert();
 }

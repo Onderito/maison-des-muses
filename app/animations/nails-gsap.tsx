@@ -105,44 +105,6 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
   } as const;
 
   mm.add(
-    "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
-    () => {
-      const ctx = gsap.context(() => {
-        const items = cardEls.filter(Boolean);
-        const travel = () =>
-          (window.innerHeight + cards.offsetHeight) / 2;
-        const scrollDistance = () =>
-          Math.min(2400, Math.max(1400, cards.offsetHeight * 0.36));
-
-        gsap.set(items, { y: travel });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            ...baseTrigger,
-            start: "top top",
-            end: () => `+=${scrollDistance()}`,
-            scrub: true,
-            anticipatePin: 1,
-          },
-        });
-
-        tl.to(items, { y: () => -travel(), ease: "none", duration: 1 }, 0).to(
-          content,
-          {
-            autoAlpha: 0,
-            y: -12,
-            ease: "power1.in",
-            duration: 0.18,
-          },
-          0.18,
-        );
-      }, section);
-
-      return () => ctx.revert();
-    },
-  );
-
-  mm.add(
     "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
     () => {
       const ctx = gsap.context(() => {
