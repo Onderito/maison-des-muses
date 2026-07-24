@@ -26,12 +26,10 @@ export default function Navbar() {
         {
           autoAlpha: 0,
           y: -16,
-          filter: "blur(4px)",
         },
         {
           autoAlpha: 1,
           y: 0,
-          filter: "blur(0px)",
           ease: "power3.out",
           duration: 0.65,
           delay: 0.1,
@@ -69,7 +67,7 @@ export default function Navbar() {
       aria-label="Navigation principale"
       className="relative z-[100] mx-auto w-full max-w-[1120px]"
     >
-      <div className="mobile-navigation-glass flex w-full items-center justify-between gap-3 rounded-[28px] p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.72),0_8px_24px_rgba(74,85,5,0.08)] sm:rounded-[52px] sm:p-2.5 xl:bg-white/50 xl:backdrop-blur-2xl xl:backdrop-saturate-150">
+      <div className="mobile-navigation-glass flex w-full items-center justify-between gap-3 rounded-[28px] p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.72),0_8px_24px_rgba(74,85,5,0.08)] sm:rounded-[52px] sm:p-2.5 xl:bg-white/50 xl:backdrop-blur-xl xl:backdrop-saturate-150">
         <Link
           href="/#accueil"
           aria-label="Revenir à l’accueil"

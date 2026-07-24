@@ -75,11 +75,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/*
- * GSAP s'exécute après le HTML pré-rendu par Next.js. Sans état initial en
- * CSS, les éléments apparaissent une frame dans leur état final au refresh.
- * GSAP rétablit leur visibilité dès que la timeline d'introduction démarre.
- */
 @media (prefers-reduced-motion: no-preference) {
   [data-gsap-intro] {
     visibility: hidden;
