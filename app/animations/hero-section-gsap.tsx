@@ -92,17 +92,6 @@ export function createHeroIntroAnimation(refs: HeroIntroRefs) {
         "-=0.25",
       )
       .from(
-        image,
-        {
-          autoAlpha: 0,
-          y: 32,
-          scale: 0.96,
-          filter: "blur(4px)",
-          duration: 0.7,
-        },
-        "-=0.3",
-      )
-      .from(
         pinkFlower,
         {
           autoAlpha: 0,
@@ -111,7 +100,7 @@ export function createHeroIntroAnimation(refs: HeroIntroRefs) {
           scale: 0.94,
           duration: 0.8,
         },
-        "-=0.55",
+        "-=0.3",
       )
       .from(
         greenFlower,
@@ -158,7 +147,11 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
 
   media.add("(prefers-reduced-motion: no-preference)", () => {
     const ctx = gsap.context(() => {
-      gsap.set(image, { force3D: true, willChange: "transform" });
+      gsap.set(image, {
+        force3D: true,
+        transformOrigin: "top left",
+        willChange: "transform",
+      });
 
       const layoutOffset = () => {
         let el: HTMLElement | null = image;
@@ -170,6 +163,28 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
           el = el.offsetParent as HTMLElement | null;
         }
         return { top, left };
+      };
+
+      const coverScale = () =>
+        Math.max(
+          window.innerWidth / image.offsetWidth,
+          window.innerHeight / image.offsetHeight,
+        );
+
+      const targetX = () => {
+        const scale = coverScale();
+        return (
+          (window.innerWidth - image.offsetWidth * scale) / 2 -
+          layoutOffset().left
+        );
+      };
+
+      const targetY = () => {
+        const scale = coverScale();
+        return (
+          (window.innerHeight - image.offsetHeight * scale) / 2 -
+          layoutOffset().top
+        );
       };
 
       const zoomTl = gsap.timeline({
@@ -200,11 +215,9 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
         .to(
           image,
           {
-            width: () => window.innerWidth,
-            height: () => window.innerHeight,
-            maxWidth: "none",
-            x: () => -layoutOffset().left,
-            y: () => -layoutOffset().top,
+            x: targetX,
+            y: targetY,
+            scale: coverScale,
             borderRadius: 0,
             zIndex: 50,
             ease: "power1.out",

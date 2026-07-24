@@ -150,6 +150,7 @@ export function openFaqItem(el: HTMLElement | null) {
       y: 0,
       filter: "blur(0px)",
     });
+    ScrollTrigger.refresh();
     return;
   }
 
@@ -160,6 +161,7 @@ export function openFaqItem(el: HTMLElement | null) {
     filter: "blur(0px)",
     duration: 0.4,
     ease: "power3.out",
+    onComplete: () => ScrollTrigger.refresh(),
   });
 }
 
@@ -174,6 +176,7 @@ export function closeFaqItem(el: HTMLElement | null) {
       y: 0,
       filter: "blur(0px)",
     });
+    ScrollTrigger.refresh();
     return;
   }
 
@@ -184,5 +187,6 @@ export function closeFaqItem(el: HTMLElement | null) {
     filter: "blur(4px)",
     duration: 0.25,
     ease: "power2.inOut",
+    onComplete: () => ScrollTrigger.refresh(),
   });
 }

@@ -16,8 +16,12 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
   const { section, title, intro, horizontal, track } = refs;
   if (!section || !title || !horizontal || !track) return () => {};
 
-  const split = new SplitText(title, { type: "words" });
-  const ctx = gsap.context(() => {
+  const media = gsap.matchMedia();
+
+  media.add("(prefers-reduced-motion: no-preference)", () => {
+    const split = new SplitText(title, { type: "words" });
+    const layoutMedia = gsap.matchMedia();
+    const ctx = gsap.context(() => {
     gsap
       .timeline({
         scrollTrigger: {
@@ -54,8 +58,7 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
         scale: 0.96,
       };
 
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 1280px)", () => {
+    layoutMedia.add("(min-width: 1280px)", () => {
       const panels = gsap.utils.toArray<HTMLElement>("[data-about-panel]");
       const headingSplits: SplitText[] = [];
       const horizontalTimeline = gsap.timeline({
@@ -203,7 +206,7 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
       };
     });
 
-    mm.add("(max-width: 1279px)", () => {
+    layoutMedia.add("(max-width: 1279px)", () => {
       const panels = gsap.utils.toArray<HTMLElement>("[data-about-panel]");
       const headingSplits: SplitText[] = [];
       const panelTimelines: gsap.core.Timeline[] = [];
@@ -374,10 +377,29 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
         headingSplits.forEach((headingSplit) => headingSplit.revert());
       };
     });
-  }, section);
+    }, section);
 
-  return () => {
-    ctx.revert();
-    split.revert();
-  };
+    return () => {
+      layoutMedia.revert();
+      ctx.revert();
+      split.revert();
+    };
+  });
+
+  media.add("(prefers-reduced-motion: reduce)", () => {
+    gsap.set(
+      section.querySelectorAll(
+        "[data-about-panel], [data-about-label], [data-about-copy], [data-about-note], [data-about-media], [data-about-img], [data-about-final-label], [data-about-final-title], [data-about-final-cta]",
+      ),
+      {
+        autoAlpha: 1,
+        clearProps: "transform,filter",
+      },
+    );
+    gsap.set(track, {
+      clearProps: "transform",
+    });
+  });
+
+  return () => media.revert();
 }

@@ -5,7 +5,7 @@ import { SplitText } from "gsap/SplitText";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 type FooterRefs = {
-  container: HTMLDivElement | null;
+  container: HTMLElement | null;
   title: HTMLHeadingElement | null;
   desc: HTMLParagraphElement | null;
   socialMedia: HTMLDivElement | null;
@@ -16,61 +16,81 @@ export function createFooterAnimation(refs: FooterRefs) {
   const { container, title, desc, socialMedia, button } = refs;
 
   if (!container) return () => {};
+
+  const media = gsap.matchMedia();
   const ctx = gsap.context(() => {
-    const split = new SplitText(title, { type: "words" });
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      const split = new SplitText(title, { type: "words" });
+      const socialMediaItems = socialMedia
+        ? gsap.utils.toArray(socialMedia.children)
+        : [];
 
-    const socialMediaItems = socialMedia
-      ? gsap.utils.toArray(socialMedia.children)
-      : [];
+      const timeline = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        scrollTrigger: {
+          trigger: container,
+          start: "top 72%",
+          once: true,
+        },
+      });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container,
-        start: "top 60%",
-        once: true,
-      },
+      timeline
+        .from(split.words, {
+          opacity: 0,
+          y: 20,
+          filter: "blur(4px)",
+          stagger: 0.08,
+          duration: 0.6,
+        })
+        .from(
+          desc,
+          {
+            opacity: 0,
+            y: 12,
+            filter: "blur(4px)",
+            duration: 0.5,
+          },
+          "-=0.3",
+        )
+        .from(
+          socialMediaItems,
+          {
+            autoAlpha: 0,
+            y: 12,
+            filter: "blur(4px)",
+            duration: 0.45,
+            stagger: 0.08,
+          },
+          "-=0.25",
+        )
+        .from(
+          button,
+          {
+            autoAlpha: 0,
+            y: 12,
+            filter: "blur(4px)",
+            duration: 0.45,
+          },
+          "-=0.2",
+        );
+
+      return () => split.revert();
     });
-    tl.from(split.words, {
-      opacity: 0,
-      y: 50,
-      rotate: 6,
-      scale: 0.8,
-      stagger: 0.08,
-      ease: "back.out(1.7)",
-      duration: 0.7,
-    })
-      .from(
-        desc,
-        { opacity: 0, y: 30, ease: "back.out(1.7)", duration: 0.7 },
-        "<0.2",
-      )
-      .from(
-        socialMediaItems,
-        {
-          autoAlpha: 0,
-          y: 40,
-          scale: 0.7,
-          ease: "power2.out",
-        },
-        "<0.2",
-      )
-      .from(
-        button,
-        {
-          autoAlpha: 0,
-          y: 40,
-          scale: 0.7,
-          ease: "power2.out",
-          stagger: 0.02,
-        },
-        "<0.2",
-      );
 
-    return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
-      ctx.revert();
-      split.revert();
-    };
+    media.add("(prefers-reduced-motion: reduce)", () => {
+      const socialMediaItems = socialMedia
+        ? gsap.utils.toArray(socialMedia.children)
+        : [];
+
+      gsap.set([title, desc, ...socialMediaItems, button], {
+        autoAlpha: 1,
+        clearProps: "transform,filter",
+      });
+    });
   }, container);
+
+  return () => {
+    media.revert();
+    ctx.revert();
+  };
 }

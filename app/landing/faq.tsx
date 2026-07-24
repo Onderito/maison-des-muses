@@ -195,6 +195,8 @@ export default function Faq() {
               </button>
 
               <div
+                aria-hidden={openIndex !== index}
+                inert={openIndex !== index}
                 id={`faq-answer-${index}`}
                 role="region"
                 aria-labelledby={`faq-question-${index}`}

@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
 
-import { createPriceNailsAnimation } from "@/app/animations/price-nails-gsap";
+import useDeferredAnimation from "@/app/hook/use-deferred-animation";
 import PinkButton from "./pink-button";
 
 const nailServices = [
@@ -55,12 +55,15 @@ export default function PriceNails() {
   const sectionRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useDeferredAnimation(sectionRef, async () => {
+    const { createPriceNailsAnimation } = await import(
+      "@/app/animations/price-nails-gsap"
+    );
     return createPriceNailsAnimation({
       section: sectionRef.current,
       image: imageRef.current,
     });
-  }, []);
+  });
 
   return (
     <section

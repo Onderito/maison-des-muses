@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import GreenButton from "@/components/ui/green-button";
-import { createFooterAnimation } from "../animations/footer-gsap";
-import { useRef, useLayoutEffect } from "react";
+import useDeferredAnimation from "../hook/use-deferred-animation";
+import { useRef } from "react";
 
 const socials = [
   {
@@ -58,7 +58,7 @@ const socials = [
   },
   {
     label: "Youtube",
-    href: "#",
+    href: null,
     icon: (
       <svg viewBox="0 0 24 24" className="h-[16px] w-[16px]" aria-hidden="true">
         <rect x="1" y="5" width="22" height="14" rx="4" fill="#FF0000" />
@@ -69,13 +69,16 @@ const socials = [
 ];
 
 export default function Footer() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const socialMediaRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useDeferredAnimation(containerRef, async () => {
+    const { createFooterAnimation } = await import(
+      "../animations/footer-gsap"
+    );
     return createFooterAnimation({
       container: containerRef.current,
       title: titleRef.current,
@@ -83,7 +86,7 @@ export default function Footer() {
       socialMedia: socialMediaRef.current,
       button: buttonRef.current,
     });
-  }, []);
+  });
   return (
     <footer
       ref={containerRef}
@@ -93,18 +96,16 @@ export default function Footer() {
         src="/images/footer-bg-mobile.webp"
         alt=""
         fill
-        priority
-        unoptimized
         sizes="100vw"
+        quality={90}
         className="object-cover xl:hidden block"
       />{" "}
       <Image
         src="/images/footer-mds.webp"
         alt=""
         fill
-        priority
-        unoptimized
         sizes="100vw"
+        quality={90}
         className="object-cover hidden xl:block"
       />
       {/* Contenu centré */}
@@ -133,16 +134,30 @@ export default function Footer() {
               className="flex flex-wrap items-center justify-center gap-x-[17px] gap-y-2"
             >
               {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target={s.href === "#" ? undefined : "_blank"}
-                  rel={s.href === "#" ? undefined : "noopener noreferrer"}
-                  className="flex items-center gap-2 font-seasons text-[16px] tracking-[-0.32px] text-desc"
-                >
-                  {s.icon}
-                  {s.label}
-                </a>
+                s.href ? (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 font-seasons text-[16px] tracking-[-0.32px] text-desc"
+                  >
+                    {s.icon}
+                    {s.label}
+                  </a>
+                ) : (
+                  <span
+                    key={s.label}
+                    aria-disabled="true"
+                    className="flex items-center gap-2 font-seasons text-[16px] tracking-[-0.32px] text-desc/65"
+                  >
+                    {s.icon}
+                    {s.label}
+                    <span className="rounded-full bg-white/55 px-2 py-0.5 text-[10px] uppercase tracking-[0.08em] text-accent">
+                      Bientôt
+                    </span>
+                  </span>
+                )
               ))}
             </div>
           </div>

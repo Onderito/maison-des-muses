@@ -2,9 +2,7 @@
 
 import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
-
 import { createAboutMeAnimation } from "../animations/about-me-gsap";
-import GreenButton from "@/components/ui/green-button";
 
 type Story = {
   label: string;
@@ -137,7 +135,7 @@ export default function AboutMe() {
 
           {stories.map((story, index) => (
             <article
-              key={story.label}
+              key={story.label + index}
               data-about-panel
               className="relative flex w-full shrink-0 flex-col overflow-hidden px-5 py-16 sm:px-10 sm:py-20 lg:grid lg:min-h-[720px] lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.9fr)] lg:grid-rows-[auto_auto_auto] lg:content-center lg:gap-x-10 lg:px-12 lg:py-12 xl:block xl:h-[min(64.64vw,1117px)] xl:min-h-0 xl:w-screen xl:px-0 xl:py-0"
             >
@@ -182,10 +180,11 @@ export default function AboutMe() {
                 <div className="absolute -left-[4%] top-[3%] h-full w-full rotate-[4deg] overflow-hidden rounded-[30px] border border-border/50 bg-white xl:-left-[6.5%] xl:top-[3.9%] xl:rotate-[5.23deg] xl:rounded-[48px]">
                   <Image
                     src={story.image}
-                    alt={story.alt}
+                    alt=""
                     fill
                     unoptimized={story.image.startsWith("http")}
-                    sizes="44vw"
+                    sizes="(min-width: 1280px) 44vw, (min-width: 1024px) 44vw, 88vw"
+                    loading="lazy"
                     className="object-cover object-top"
                   />
                 </div>
@@ -196,6 +195,7 @@ export default function AboutMe() {
                     sizes="(min-width: 1024px) 44vw, 88vw"
                     quality={75}
                     fill
+                    loading="lazy"
                     className="object-cover object-top"
                   />
                 </div>

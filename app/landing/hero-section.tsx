@@ -104,6 +104,7 @@ export default function HeroSection() {
             alt="Julia, fondatrice de Maison des Muses dans son institut"
             width={1920}
             height={1080}
+            fetchPriority="high"
             sizes="(min-width: 1280px) calc(100vw - 96px), (min-width: 768px) calc(100vw - 96px), calc(100vw - 32px)"
             loading="eager"
           />
@@ -117,7 +118,7 @@ export default function HeroSection() {
           width={796}
           height={995}
           sizes="(min-width: 1280px) 795px, (min-width: 1024px) 550px, (min-width: 768px) 350px, 250px"
-          loading="eager"
+          fetchPriority="low"
         />
         <Image
           ref={greenFlowerRef}
@@ -127,7 +128,7 @@ export default function HeroSection() {
           width={796}
           height={833}
           sizes="(min-width: 1280px) 795px, (min-width: 1024px) 550px, (min-width: 768px) 350px, 250px"
-          loading="eager"
+          fetchPriority="low"
         />
       </div>
     </section>

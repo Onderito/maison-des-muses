@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { createPodcastContentAnimation } from "@/app/animations/podcast-content-gsap";
-import { useRef, useLayoutEffect } from "react";
+import useDeferredAnimation from "@/app/hook/use-deferred-animation";
+import { useRef } from "react";
 
 export default function PodcastContent() {
   const containerRef = useRef<HTMLElement>(null);
@@ -13,7 +13,10 @@ export default function PodcastContent() {
   const pinkFlowerRef = useRef<HTMLImageElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useDeferredAnimation(containerRef, async () => {
+    const { createPodcastContentAnimation } = await import(
+      "@/app/animations/podcast-content-gsap"
+    );
     return createPodcastContentAnimation({
       container: containerRef.current,
       label: labelRef.current,
@@ -23,7 +26,7 @@ export default function PodcastContent() {
       pinkFlower: pinkFlowerRef.current,
       buttons: buttonsRef.current,
     });
-  }, []);
+  });
   return (
     <section
       id="podcasts"
@@ -127,7 +130,7 @@ export default function PodcastContent() {
           >
             <Image
               src="/images/tiktok-icon.webp"
-              alt=""
+              alt="tiktok icon"
               width={20}
               height={20}
             />
@@ -154,7 +157,7 @@ export default function PodcastContent() {
           >
             <Image
               src="/images/youtubee-icon.webp"
-              alt=""
+              alt="youtube icon"
               width={20}
               height={20}
             />
