@@ -120,12 +120,14 @@ export default function AboutMe() {
             <div className="max-w-5xl">
               <h2
                 ref={titleRef}
+                data-scroll-intro
                 className="font-ahsing text-[54px] leading-[0.88] tracking-[-0.04em] text-title md:text-[72px] lg:text-[96px] xl:text-[120px]"
               >
                 Derrière Maison <br /> des Muses
               </h2>
               <p
                 ref={introRef}
+                data-scroll-intro
                 className="mx-auto mt-7 max-w-2xl font-seasons text-[16px] leading-relaxed text-desc md:text-[18px] xl:mt-9"
               >
                 Plus qu’un lieu de beauté, Maison des Muses est une histoire de

@@ -71,6 +71,7 @@ export default function Nails() {
         >
           <p
             ref={labelRef}
+            data-scroll-intro
             className="font-seasons text-[13px] uppercase tracking-[0.16em] text-accent sm:text-[14px]"
           >
             Le carnet des Muses
@@ -78,12 +79,14 @@ export default function Nails() {
           <h2
             id="nails-title"
             ref={titleRef}
+            data-scroll-intro
             className="heading-2 mt-4 max-w-[720px] text-balance text-title"
           >
             Des créations uniques
           </h2>
           <p
             ref={descRef}
+            data-scroll-intro
             className="body-text mt-5 max-w-[620px] text-pretty font-seasons text-desc"
           >
             Découvrez les dernières créations réalisées au salon. Des poses

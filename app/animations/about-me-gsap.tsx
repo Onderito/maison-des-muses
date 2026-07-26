@@ -30,6 +30,7 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
           once: true,
         },
       })
+      .set([title, intro], { visibility: "visible" })
       .from(split.words, {
         opacity: 0,
         y: 50,

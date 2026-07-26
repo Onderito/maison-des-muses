@@ -24,7 +24,7 @@ export function createNailsIntroAnimation(refs: NailsIntroRefs) {
       defaults: { ease: "power3.out" },
     });
 
-    tl.from(label, {
+    tl.set([label, title, desc], { visibility: "visible" }).from(label, {
       autoAlpha: 0,
       y: 12,
       filter: "blur(4px)",
@@ -125,20 +125,7 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
           },
         });
 
-        tl.to(
-          items,
-          { y: () => -travel(), ease: "none", duration: 1 },
-          0,
-        ).to(
-          content,
-          {
-            autoAlpha: 0,
-            y: -12,
-            ease: "power1.in",
-            duration: 0.18,
-          },
-          0.18,
-        );
+        tl.to(items, { y: () => -travel(), ease: "none", duration: 1 }, 0);
       }, section);
 
       return () => ctx.revert();
@@ -181,17 +168,7 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
           ease: "none",
           duration: 1,
           stagger: 0.05,
-        }).to(
-          content,
-          {
-            autoAlpha: 0,
-            y: -12,
-            filter: "blur(4px)",
-            ease: "power1.in",
-            duration: 0.16,
-          },
-          0.3,
-        );
+        });
       }, section);
 
       return () => ctx.revert();
