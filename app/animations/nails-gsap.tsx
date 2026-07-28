@@ -24,7 +24,7 @@ export function createNailsIntroAnimation(refs: NailsIntroRefs) {
       defaults: { ease: "power3.out" },
     });
 
-    tl.set([label, title, desc], { visibility: "visible" }).from(label, {
+    tl.from(label, {
       autoAlpha: 0,
       y: 12,
       filter: "blur(4px)",
@@ -74,13 +74,6 @@ export function createNailsIntroAnimation(refs: NailsIntroRefs) {
     };
   });
 
-  media.add("(prefers-reduced-motion: reduce)", () => {
-    gsap.set([label, title, desc], {
-      autoAlpha: 1,
-      clearProps: "transform,filter",
-    });
-  });
-
   return () => media.revert();
 }
 
@@ -92,7 +85,7 @@ type NailsScrollRefs = {
 };
 
 export function createNailsScrollAnimation(refs: NailsScrollRefs) {
-  const { section, cards, cardEls, content } = refs;
+  const { section, cards, cardEls } = refs;
   if (!section || !cards) return () => {};
 
   const mm = gsap.matchMedia();
@@ -113,8 +106,6 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
         const scrollDistance = () =>
           Math.min(2400, Math.max(1400, cards.offsetHeight * 0.36));
 
-        gsap.set(items, { y: travel });
-
         const tl = gsap.timeline({
           scrollTrigger: {
             ...baseTrigger,
@@ -125,7 +116,12 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
           },
         });
 
-        tl.to(items, { y: () => -travel(), ease: "none", duration: 1 }, 0);
+        tl.fromTo(
+          items,
+          { y: travel },
+          { y: () => -travel(), ease: "none", duration: 1 },
+          0,
+        );
       }, section);
 
       return () => ctx.revert();
@@ -143,8 +139,6 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
             window.innerHeight,
           );
 
-        gsap.set(items, { y: () => window.innerHeight });
-
         const tl = gsap.timeline({
           scrollTrigger: {
             ...baseTrigger,
@@ -158,29 +152,26 @@ export function createNailsScrollAnimation(refs: NailsScrollRefs) {
           },
         });
 
-        tl.to(items, {
-          y: (i, target) =>
-            -(
-              target.offsetTop +
-              target.offsetHeight +
-              window.innerHeight * 0.15
-            ),
-          ease: "none",
-          duration: 1,
-          stagger: 0.05,
-        });
+        tl.fromTo(
+          items,
+          { y: () => window.innerHeight },
+          {
+            y: (i, target) =>
+              -(
+                target.offsetTop +
+                target.offsetHeight +
+                window.innerHeight * 0.15
+              ),
+            ease: "none",
+            duration: 1,
+            stagger: 0.05,
+          },
+        );
       }, section);
 
       return () => ctx.revert();
     },
   );
-
-  mm.add("(prefers-reduced-motion: reduce)", () => {
-    gsap.set([cards, content, ...cardEls.filter(Boolean)], {
-      autoAlpha: 1,
-      clearProps: "transform,filter",
-    });
-  });
 
   return () => mm.revert();
 }
