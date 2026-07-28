@@ -76,7 +76,8 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  [data-gsap-intro] {
+  [data-gsap-intro],
+  [data-scroll-intro] {
     visibility: hidden;
   }
 }

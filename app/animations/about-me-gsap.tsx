@@ -30,6 +30,7 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
             once: true,
           },
         })
+        .set([title, intro], { visibility: "visible" })
         .from(split.words, {
           opacity: 0,
           y: 50,
@@ -390,6 +391,21 @@ export function createAboutMeAnimation(refs: AboutMeRefs) {
       ctx.revert();
       split.revert();
     };
+  });
+
+  media.add("(prefers-reduced-motion: reduce)", () => {
+    gsap.set(
+      section.querySelectorAll(
+        "[data-about-panel], [data-about-label], [data-about-copy], [data-about-note], [data-about-media], [data-about-img], [data-about-final-label], [data-about-final-title], [data-about-final-cta]",
+      ),
+      {
+        autoAlpha: 1,
+        clearProps: "transform,filter",
+      },
+    );
+    gsap.set(track, {
+      clearProps: "transform",
+    });
   });
 
   return () => media.revert();
