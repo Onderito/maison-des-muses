@@ -24,12 +24,13 @@ export function createNailsIntroAnimation(refs: NailsIntroRefs) {
       defaults: { ease: "power3.out" },
     });
 
-    tl.from(label, {
-      autoAlpha: 0,
-      y: 12,
-      filter: "blur(4px)",
-      duration: 0.45,
-    })
+    tl.set([label, title, desc], { visibility: "visible" })
+      .from(label, {
+        autoAlpha: 0,
+        y: 12,
+        filter: "blur(4px)",
+        duration: 0.45,
+      })
       .from(
         split.words,
         {
@@ -72,6 +73,13 @@ export function createNailsIntroAnimation(refs: NailsIntroRefs) {
       tl.kill();
       split.revert();
     };
+  });
+
+  media.add("(prefers-reduced-motion: reduce)", () => {
+    gsap.set([label, title, desc], {
+      autoAlpha: 1,
+      clearProps: "transform,filter",
+    });
   });
 
   return () => media.revert();
