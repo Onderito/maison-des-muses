@@ -204,25 +204,7 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
     "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
     () => {
       const ctx = gsap.context(() => {
-        const layoutOffset = () => {
-          let el: HTMLElement | null = image;
-          let top = 0;
-          let left = 0;
-          while (el && el !== hero) {
-            top += el.offsetTop;
-            left += el.offsetLeft;
-            el = el.offsetParent as HTMLElement | null;
-          }
-          return { top, left };
-        };
-
-        const viewportWidth = () => document.documentElement.clientWidth;
         const viewportHeight = () => window.innerHeight;
-        const coverScale = () =>
-          Math.max(
-            viewportWidth() / image.offsetWidth,
-            viewportHeight() / image.offsetHeight,
-          );
 
         gsap.set(image, {
           force3D: true,
@@ -234,8 +216,8 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
           scrollTrigger: {
             trigger: hero,
             start: "top top",
-            end: () => `+=${Math.max(760, viewportHeight())}`,
-            scrub: true,
+            end: () => `+=${Math.max(420, viewportHeight() * 0.6)}`,
+            scrub: 0.5,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
@@ -249,7 +231,7 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
             {
               autoAlpha: 0,
               y: -12,
-              duration: 0.2,
+              duration: 0.35,
               ease: "power1.in",
             },
             0,
@@ -257,30 +239,25 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
           .to(
             image,
             {
-              x: () =>
-                viewportWidth() / 2 -
-                (layoutOffset().left + image.offsetWidth / 2),
-              y: () =>
-                viewportHeight() / 2 -
-                (layoutOffset().top + image.offsetHeight / 2),
-              scale: coverScale,
-              borderRadius: 0,
-              zIndex: 50,
+              y: () => -Math.min(56, viewportHeight() * 0.06),
+              scale: 1.12,
+              borderRadius: 24,
               ease: "power1.out",
-              duration: 0.5,
+              duration: 0.65,
             },
             0,
           )
           .to(
             pinkFlower,
-            { xPercent: 100, duration: 0.3, ease: "power1.out" },
+            { xPercent: 35, duration: 0.45, ease: "power1.out" },
             "<",
           )
           .to(
             greenFlower,
-            { xPercent: -100, duration: 0.3, ease: "power1.out" },
+            { xPercent: -35, duration: 0.45, ease: "power1.out" },
             "<",
-          );
+          )
+          .set(image, { willChange: "auto" }, ">");
       }, hero);
 
       return () => ctx.revert();

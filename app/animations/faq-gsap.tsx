@@ -4,6 +4,16 @@ import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
+let faqRefreshCall: gsap.core.Tween | null = null;
+
+function scheduleFaqRefresh() {
+  faqRefreshCall?.kill();
+  faqRefreshCall = gsap.delayedCall(0.2, () => {
+    ScrollTrigger.refresh(true);
+    faqRefreshCall = null;
+  });
+}
+
 type FaqRefs = {
   container: HTMLElement | null;
   label: HTMLSpanElement | null;
@@ -29,6 +39,11 @@ export function createFaqAnimation(refs: FaqRefs) {
         : [];
 
       const tl = gsap.timeline({
+        onComplete: () => {
+          gsap.set([leftLayout, ...rightLayoutItems], {
+            clearProps: "transform,opacity,visibility,filter",
+          });
+        },
         scrollTrigger: {
           trigger: container,
           start: "top 78%",
@@ -41,7 +56,7 @@ export function createFaqAnimation(refs: FaqRefs) {
         y: 12,
         filter: "blur(4px)",
         ease: "power3.out",
-        duration: 0.45,
+        duration: 0.35,
       })
         .from(
           split.words,
@@ -49,11 +64,11 @@ export function createFaqAnimation(refs: FaqRefs) {
             opacity: 0,
             y: 20,
             filter: "blur(4px)",
-            stagger: 0.08,
+            stagger: 0.07,
             ease: "power3.out",
-            duration: 0.65,
+            duration: 0.55,
           },
-          "-=0.2",
+          "-=0.23",
         )
         .from(
           desc,
@@ -62,9 +77,9 @@ export function createFaqAnimation(refs: FaqRefs) {
             y: 12,
             filter: "blur(4px)",
             ease: "power3.out",
-            duration: 0.55,
+            duration: 0.42,
           },
-          "-=0.35",
+          "<+=0.18",
         )
         .from(
           cta,
@@ -73,20 +88,19 @@ export function createFaqAnimation(refs: FaqRefs) {
             y: 12,
             filter: "blur(4px)",
             ease: "power3.out",
-            duration: 0.5,
+            duration: 0.4,
           },
-          "-=0.35",
+          "<+=0.12",
         )
         .from(
           leftLayout,
           {
             autoAlpha: 0,
-            y: 28,
-            scale: 0.97,
-            duration: 0.7,
+            filter: "blur(4px)",
+            duration: 0.5,
             ease: "power3.out",
           },
-          "-=0.2",
+          "-=0.22",
         )
         .from(
           rightLayoutItems,
@@ -94,11 +108,11 @@ export function createFaqAnimation(refs: FaqRefs) {
             autoAlpha: 0,
             y: 20,
             filter: "blur(4px)",
-            duration: 0.55,
+            duration: 0.48,
             ease: "power3.out",
-            stagger: 0.08,
+            stagger: 0.07,
           },
-          "-=0.5",
+          "-=0.52",
         );
 
       return () => {
@@ -150,7 +164,7 @@ export function openFaqItem(el: HTMLElement | null) {
       y: 0,
       filter: "blur(0px)",
     });
-    ScrollTrigger.refresh();
+    scheduleFaqRefresh();
     return;
   }
 
@@ -161,7 +175,7 @@ export function openFaqItem(el: HTMLElement | null) {
     filter: "blur(0px)",
     duration: 0.4,
     ease: "power3.out",
-    onComplete: () => ScrollTrigger.refresh(),
+    onComplete: scheduleFaqRefresh,
   });
 }
 
@@ -176,7 +190,7 @@ export function closeFaqItem(el: HTMLElement | null) {
       y: 0,
       filter: "blur(0px)",
     });
-    ScrollTrigger.refresh();
+    scheduleFaqRefresh();
     return;
   }
 
@@ -187,6 +201,6 @@ export function closeFaqItem(el: HTMLElement | null) {
     filter: "blur(4px)",
     duration: 0.25,
     ease: "power2.inOut",
-    onComplete: () => ScrollTrigger.refresh(),
+    onComplete: scheduleFaqRefresh,
   });
 }

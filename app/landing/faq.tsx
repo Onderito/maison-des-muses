@@ -129,7 +129,7 @@ export default function Faq() {
       <div className="mt-10 flex flex-col gap-8 lg:w-full lg:flex-row lg:items-start lg:justify-between lg:gap-10 xl:mt-16 xl:gap-14">
         <figure
           ref={leftLayoutRef}
-          className="relative h-[300px] w-full overflow-hidden rounded-[32px] shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_18px_50px_rgba(74,85,5,0.12)] md:h-[400px] lg:sticky lg:top-24 lg:h-[500px] lg:w-[48%] xl:h-[600px]"
+          className="relative h-[300px] w-full overflow-hidden rounded-[32px] shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_18px_50px_rgba(74,85,5,0.12)] md:h-[400px] lg:sticky lg:top-24 lg:h-[500px] lg:w-[48%] lg:self-start xl:h-[600px]"
         >
           <Image
             className="object-cover"

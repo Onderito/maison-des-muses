@@ -21,11 +21,12 @@ export function createHeadSpaAnimation(refs: HeadSpaRefs) {
   const cardImages = cards
     .map((card) => card.querySelector<HTMLElement>("[data-service-image]"))
     .filter((element): element is HTMLElement => Boolean(element));
-  const cardDetails = cards.flatMap((card) =>
+  const cardDetailsByCard = cards.map((card) =>
     gsap.utils.toArray<HTMLElement>(
       card.querySelectorAll("[data-service-reveal]"),
     ),
   );
+  const cardDetails = cardDetailsByCard.flat();
   const mm = gsap.matchMedia();
 
   mm.add("(prefers-reduced-motion: no-preference)", () => {
@@ -42,7 +43,7 @@ export function createHeadSpaAnimation(refs: HeadSpaRefs) {
       autoAlpha: 0,
       y: 12,
       filter: "blur(4px)",
-      duration: 0.45,
+      duration: 0.35,
     })
       .from(
         split.words,
@@ -50,7 +51,7 @@ export function createHeadSpaAnimation(refs: HeadSpaRefs) {
           autoAlpha: 0,
           y: 20,
           filter: "blur(4px)",
-          stagger: 0.08,
+          stagger: 0.07,
           duration: 0.55,
         },
         "-=0.25",
@@ -61,20 +62,20 @@ export function createHeadSpaAnimation(refs: HeadSpaRefs) {
           autoAlpha: 0,
           y: 12,
           filter: "blur(4px)",
-          duration: 0.5,
+          duration: 0.42,
         },
-        "-=0.28",
+        "<+=0.18",
       )
       .from(
         cards,
         {
           autoAlpha: 0,
-          y: 40,
+          y: 32,
           scale: 0.98,
-          stagger: 0.14,
-          duration: 0.7,
+          stagger: 0.1,
+          duration: 0.6,
         },
-        "-=0.2",
+        0.72,
       )
       .from(
         cardImages,
@@ -82,22 +83,25 @@ export function createHeadSpaAnimation(refs: HeadSpaRefs) {
           autoAlpha: 0,
           scale: 0.96,
           filter: "blur(4px)",
-          stagger: 0.1,
-          duration: 0.55,
+          stagger: 0.08,
+          duration: 0.48,
         },
-        "-=0.55",
-      )
-      .from(
-        cardDetails,
+        0.8,
+      );
+
+    cardDetailsByCard.forEach((details, index) => {
+      tl.from(
+        details,
         {
           autoAlpha: 0,
           y: 12,
           filter: "blur(4px)",
-          stagger: 0.08,
-          duration: 0.45,
+          stagger: 0.055,
+          duration: 0.38,
         },
-        "-=0.4",
+        0.94 + index * 0.1,
       );
+    });
 
     return () => {
       tl.scrollTrigger?.kill();

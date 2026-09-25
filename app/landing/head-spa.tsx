@@ -51,8 +51,8 @@ export default function HeadSap() {
       aria-labelledby="head-spa-title"
       className="relative flex flex-col overflow-hidden"
     >
-      <div className="container relative z-10 flex flex-col pb-0">
-        <div className="flex flex-col items-center justify-center">
+      <div className="container relative z-10 flex flex-col pb-0 xl:mx-0 xl:max-w-none">
+        <div className="flex flex-col items-center justify-center xl:items-start">
           <p
             ref={labelRef}
             className="font-seasons text-[13px] uppercase tracking-[0.16em] text-accent sm:text-[14px]"
@@ -62,13 +62,13 @@ export default function HeadSap() {
           <h2
             id="head-spa-title"
             ref={titleRef}
-            className="heading-2 mt-4 max-w-[720px] text-balance text-center leading-[0.88] text-title"
+            className="heading-2 mt-4 max-w-[720px] text-balance text-center leading-[0.88] text-title xl:text-left"
           >
             Un rituel pensé pour tout relâcher
           </h2>
           <p
             ref={descRef}
-            className="body-text mt-5 max-w-[620px] text-pretty text-center font-seasons text-desc"
+            className="body-text mt-5 max-w-[620px] text-pretty text-center font-seasons text-desc xl:text-left"
           >
             Inspiré des head spa japonais, chaque soin mêle massages
             enveloppants, vapeur et cascades d&apos;eau tiède. Choisissez
