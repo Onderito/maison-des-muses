@@ -9,10 +9,11 @@ import PinkButton from "./pink-button";
 
 const nailServices = [
   ["Pose capsules américaines", "50 €"],
-  ["Dépose, pose et soins", "60 €"],
+  ["Dépose, pose américaine et soins", "60 €"],
   ["Pose demi-capsules et gel", "60 €"],
-  ["Remplissage", "70 €"],
+  ["Remplissage demi-capsules et gel", "70 €"],
   ["Gainage", "40 €"],
+  ["Remplissage gainage", "50 €"],
   ["Semi-permanent", "30 €"],
   ["Dépose seule", "20 €"],
 ] as const;
