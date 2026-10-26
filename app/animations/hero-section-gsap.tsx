@@ -217,6 +217,7 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
             trigger: hero,
             start: "top top",
             end: () => `+=${Math.max(420, viewportHeight() * 0.6)}`,
+
             scrub: 0.5,
             pin: true,
             pinSpacing: true,
@@ -294,6 +295,7 @@ export function createHeroScrollAnimation(refs: HeroScrollRefs) {
             trigger: hero,
             start: "top top",
             end: "+=1200",
+
             scrub: 0.3,
             pin: true,
             pinSpacing: true,
